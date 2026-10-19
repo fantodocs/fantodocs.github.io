@@ -310,23 +310,16 @@ html[data-theme='dark'] .sidebar-content ul ul {
 }
 
 /* 404 buttons */
-.notfound-actions { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+.notfound-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
 .notfound-btn {
-  --c: #fff;
-  padding: 0.8rem 1.6rem;
-  color: var(--c) !important;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.9rem;
+  color: #4ade80 !important;
+  font-size: 0.9rem;
   text-decoration: none !important;
-  background: rgba(7, 9, 10, 0.85);
-  border: 2px solid var(--c);
-  border-radius: 14px;
-  box-shadow: 0 0 10px color-mix(in srgb, var(--c) 40%, transparent);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  transition: color 0.2s ease;
 }
-.notfound-red { --c: #ff3b3b; }
-.notfound-blue { --c: #3b82f6; }
-.notfound-btn:hover {
-  transform: translateY(-4px) scale(1.05);
-  background: color-mix(in srgb, var(--c) 14%, #07090a);
-  box-shadow: 0 0 24px var(--c);
-}
+.notfound-btn:hover { color: #86efac !important; }

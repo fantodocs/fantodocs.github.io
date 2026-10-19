@@ -12,8 +12,7 @@ const t = (pt, en) => ({ 'pt-BR': pt, 'pt-br': pt, 'en-US': en, 'en-us': en });
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://f4nt0.github.io',
-  base: '/fantodocs',
+  site: 'https://fantodocs.github.io',
   markdown: {
     shikiConfig: {
       themes: {
@@ -222,7 +221,7 @@ export default defineConfig({
             },
           ]),
       ],
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/F4NT0/fantodocs' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/fantodocs/fantodocs.github.io' }],
 		}),
 	],
 });
