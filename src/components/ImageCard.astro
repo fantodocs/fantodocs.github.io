@@ -14,19 +14,20 @@ interface Props {
   languageIcon?: string;
   badges?: Badge[];
   size?: 'button' | 'full';
+  fit?: 'cover' | 'contain';
 }
 
-const { href, image, title, subtitle, alt = title, language, languageIcon, badges = [], size = 'button' } = Astro.props;
+const { href, image, title, subtitle, alt = title, language, languageIcon, badges = [], size = 'button', fit = 'cover' } = Astro.props;
 const iconUrl = languageIcon && (languageIcon.startsWith('/') || languageIcon.startsWith('http')
   ? languageIcon
   : `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${languageIcon}/${languageIcon}-original.svg`);
 ---
 
 <a class:list={['image-card', { 'image-card-full': size === 'full' }]} href={href}>
-  <img class="image-card-img" src={image} alt={alt} loading="lazy" />
+  <img class="image-card-img" style={`object-fit: ${fit}`} src={image} alt={alt} loading="lazy" />
   <div class="image-card-body">
+    <strong class="image-card-title">{title}</strong>
     <div class="image-card-header">
-      <strong class="image-card-title">{title}</strong>
       {language && (
         <span class="image-card-lang">
           {iconUrl && <img src={iconUrl} alt="" width="16" height="16" />}
@@ -122,5 +123,30 @@ const iconUrl = languageIcon && (languageIcon.startsWith('/') || languageIcon.st
   .image-card-subtitle {
     font-size: 0.9rem;
     color: var(--sl-color-gray-2);
+  }
+
+  @media (max-width: 50rem) {
+    .image-card {
+      border-radius: 8px;
+    }
+
+    .image-card .image-card-img {
+      display: none;
+    }
+
+    .image-card-body {
+      flex-direction: column;
+      gap: 0.15rem;
+      padding: 0.9rem 1rem;
+    }
+
+    .image-card-title {
+      font-size: 1.15rem;
+    }
+
+    .image-card-subtitle {
+      font-size: 0.8rem;
+      color: var(--sl-color-gray-3);
+    }
   }
 </style>

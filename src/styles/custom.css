@@ -169,6 +169,10 @@ main .hero .actions {
   justify-content: center !important;
 }
 
+main .hero .actions a.sl-link-button.secondary {
+  border-radius: 12px !important;
+}
+
 html[data-theme='dark'] main .hero .actions a.sl-link-button {
   color: #4ade80 !important;
 }
@@ -323,3 +327,24 @@ html[data-theme='dark'] .sidebar-content ul ul {
   transition: color 0.2s ease;
 }
 .notfound-btn:hover { color: #86efac !important; }
+
+/* Cards de projeto com imagem: 3 por linha no desktop, 1 por linha no celular */
+.card-grid:has(> .image-card),
+.card-grid:has(.image-card) {
+  grid-template-columns: 1fr !important;
+}
+@media (min-width: 50rem) {
+  .card-grid:has(.image-card) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+}
+
+/* Títulos centralizados na página de perfil */
+main:has(.image-card) h1,
+main:has(.image-card) .sl-markdown-content :is(h2, h3, h4) {
+  text-align: center;
+}
+main:has(.image-card) .sl-markdown-content .sl-heading-wrapper {
+  justify-content: center;
+}

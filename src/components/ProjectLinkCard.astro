@@ -76,4 +76,9 @@ const iconUrl = languageIcon && (languageIcon.startsWith('/') || languageIcon.st
     font-weight: 600;
     line-height: 1.4;
   }
+
+  :global(html[data-theme='light']) .project-card-badge {
+    color: color-mix(in srgb, var(--badge-color) 45%, black);
+    background: color-mix(in srgb, var(--badge-color) 25%, white);
+  }
 </style>

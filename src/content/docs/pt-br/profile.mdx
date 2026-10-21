@@ -1,6 +1,6 @@
 ---
-title: Meu Currículo
-description: PT-BR versão do meu Resume
+title: Meu Perfil
+description: PT-BR versão do meu perfil
 ---
 
 import { LinkCard, CardGrid } from '@astrojs/starlight/components';
@@ -62,6 +62,16 @@ import ImageCard from '../../../components/ImageCard.astro';
     language="C#"
     languageIcon="csharp"
     badges={[{ text: 'Desktop', color: '#9A00FF'}]}
+  />
+  <ImageCard
+    href="https://sunnystur.com"
+    image="/projects/sunnytur.png"
+    fit="contain"
+    title="Sunny's Tur"
+    subtitle="Página de portfolio de motorista executivo."
+    language="Astro"
+    languageIcon="astro"
+    badges={[{ text: 'Web', color: '#f59e0b'}]}
   />
 </CardGrid>
 
