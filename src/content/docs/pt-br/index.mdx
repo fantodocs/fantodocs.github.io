@@ -1,26 +1,34 @@
 ---
-title: FantoDocs
-description: Fanto Documentations
+title: Gabriel Fanto Stundner
+description: Engenheiro de Software - Gabriel Fanto Stundner
 template: splash
 hero:
-  tagline: Software Engineer Documentations
+  tagline: Engenheiro de Software
   image:
-    file: ../../../assets/intro/term.svg
+    html: '<div class="hero-portrait"><img src="/me.png" alt="Foto de Gabriel Fanto Stundner" /></div>'
   actions:
-    - text: Acessar
-      link: /pt-br/enter/
+    - text: Meu Perfil
+      link: /pt-br/profile/
+      icon: right-arrow
+      variant: secondary
+    - text: Documentações
+      link: /pt-br/initial-page/
       icon: right-arrow
       variant: secondary
     - text: Github
       link: https://github.com/F4NT0
       icon: external
-      variant: minimal
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import ProjectLinkCard from '../../../components/ProjectLinkCard.astro';
 
-## My latest projects
+## Bem-vindo ao meu site
+
+<p class="welcome-text">Quer tirar uma ideia do papel? Eu crio <strong>sites</strong>, <strong>aplicativos</strong> e <strong>programas de computador</strong> sob medida para você ou para o seu negócio. Explore meu perfil, confira as documentações que escrevi ou fale comigo pelo Github.</p>
+
+## Meus últimos projetos
 
 <CardGrid>
 	<ProjectLinkCard title="cash-ctrl" subtitle="Financeiro pelo terminal." href="https://github.com/F4NT0/cash-ctrl" language="C#" color="#a179dc" type="TUI" />

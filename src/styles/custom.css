@@ -340,11 +340,41 @@ html[data-theme='dark'] .sidebar-content ul ul {
   }
 }
 
-/* Títulos centralizados na página de perfil */
-main:has(.image-card) h1,
-main:has(.image-card) .sl-markdown-content :is(h2, h3, h4) {
+/* Títulos centralizados com barra separadora */
+h1#_top,
+.sl-markdown-content :is(h2, h3, h4) {
   text-align: center;
+  width: 100%;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--sl-color-hairline);
 }
-main:has(.image-card) .sl-markdown-content .sl-heading-wrapper {
+.sl-markdown-content .sl-heading-wrapper {
   justify-content: center;
+}
+
+/* Botões do hero: retangulares e coloridos */
+main .hero .actions a.sl-link-button {
+  border-radius: 12px !important;
+  border-width: 1px !important;
+  background: transparent !important;
+}
+html[data-theme] main .hero .actions a.sl-link-button[href$="/profile/"] { color: #3b82ff !important; border-color: #3b82ff !important; }
+html[data-theme] main .hero .actions a.sl-link-button[href$="/initial-page/"] { color: #ff3b3b !important; border-color: #ff3b3b !important; }
+html[data-theme] main .hero .actions a.sl-link-button[href^="https://github.com"] { color: #1ee82c !important; border-color: #1ee82c !important; }
+main .hero .actions a.sl-link-button:hover { filter: brightness(1.25); box-shadow: 0 0 12px currentColor; }
+
+/* Retrato em hexágono no hero */
+.hero-portrait { display: flex; justify-content: center; }
+.hero-portrait img {
+  width: min(380px, 80vw);
+  height: auto;
+  margin: 0 !important;
+  clip-path: polygon(50% 9%, 86% 29%, 86% 72%, 50% 92%, 14% 72%, 14% 29%);
+  filter: drop-shadow(0 0 14px rgba(30, 232, 44, 0.35));
+}
+.welcome-text {
+  max-width: 42rem;
+  margin: 1rem auto 2rem !important;
+  text-align: center;
+  line-height: 1.7;
 }
