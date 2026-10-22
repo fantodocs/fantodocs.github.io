@@ -33,17 +33,21 @@ const showBack = label && backLabel;
     align-items: center;
     gap: 0.4rem;
     margin-bottom: 1rem;
-    padding: 0.25rem 0.75rem;
-    border: 1px solid #ffffff;
-    border-radius: 999px;
-    color: #4ade80 !important;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    border-left: 4px solid #1ee882;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(30, 232, 130, 0.14), rgba(30, 232, 130, 0.04));
+    color: #1ee882 !important;
     font-size: 0.9rem;
+    font-weight: 600;
     text-decoration: none;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
   }
 
   .back-to-topic:hover {
     color: #86efac !important;
-    border-color: #ffffff;
+    border-color: #4ade80;
+    background: linear-gradient(135deg, rgba(30, 232, 130, 0.24), rgba(30, 232, 130, 0.08));
   }
 </style>
