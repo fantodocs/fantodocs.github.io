@@ -1,9 +1,11 @@
 ---
 title: Instalando o clidocs
-description: Como instalar e testar o clidocs no Windows e no Linux
+description: Como instalar o clidocs com um único comando no Windows, Linux e macOS
 ---
 
-import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+![clidocs](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/new-images/cover.png)
 
 ## Requisitos
 
@@ -11,11 +13,14 @@ import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 |---|---|
 | **Windows 10 / 11 (64 bits)** | Sistema suportado |
 | **PowerShell 5.1+** | Já vem no Windows, usado nos diálogos de arquivo |
-| **Neovim (`nvim`)** | Editar snippets |
-| **Git** | Sincronização com o GitHub |
+| **Neovim (`nvim`)** | Editar snippets (`Enter` / `e`) |
+| **Git** | Sincronização com o GitHub (`g`) |
 | **Windows Terminal (`wt`)** | Recomendado, abre o Neovim em uma nova aba |
-| **Nerd Font** (ex.: JetBrainsMono) | Ícones das pastas |
+| **VS Code (`code`)** | Opcional, abre arquivos com `v` |
+| **Nerd Font** (JetBrainsMono) | Ícones das pastas |
 | **Go 1.24+** | Somente para compilar do código-fonte |
+
+Instale os pré-requisitos com o `winget`:
 
 ```powershell
 winget install Neovim.Neovim
@@ -23,27 +28,76 @@ winget install Git.Git
 winget install Microsoft.WindowsTerminal
 ```
 
-## Instalação
+:::tip[Nerd Font]
+Baixe a [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads), instale os arquivos `.ttf` e defina a fonte nas configurações do perfil do Windows Terminal.
+:::
+
+## Instalação com um único comando
+
+Escolha o seu sistema operacional:
 
 <Tabs>
   <TabItem label="Windows">
 
-### Opção A: instalador (recomendado)
+Abra o **PowerShell** e cole o comando abaixo. Ele baixa o `clidocs.exe` e o instalador (`install.exe`) da última release para `%USERPROFILE%\clidocs` e abre o instalador como Administrador.
+
+```powershell title="PowerShell"
+$d = "$env:USERPROFILE\clidocs"
+New-Item -ItemType Directory -Force $d | Out-Null
+iwr https://github.com/F4NT0/clidocs/releases/latest/download/clidocs.exe -OutFile "$d\clidocs.exe"
+iwr https://github.com/F4NT0/clidocs/releases/latest/download/install.exe -OutFile "$d\install.exe"
+Start-Process "$d\install.exe" -WorkingDirectory $d -Verb RunAs
+```
+
+Depois, siga o assistente do instalador:
 
 <Steps>
-1. Baixe `clidocs.exe` e `clidocs-install.exe` na [página de releases](https://github.com/F4NT0/clidocs/releases).
-2. Coloque os dois arquivos na mesma pasta.
-3. Execute o instalador como **Administrador**:
-
-   ```powershell
-   .\clidocs-install.exe
-   ```
-
-4. Escolha a pasta de instalação e confirme. O `clidocs` é adicionado ao `PATH` automaticamente.
-5. Abra um **novo** terminal e execute `clidocs`.
+1. Escolha a pasta de instalação e clique em **Next**.
+2. Se já existir um `.exe` no local (atualização), o instalador pergunta se deseja substituí-lo.
+3. Aguarde a mensagem de sucesso. O `clidocs` é adicionado ao `PATH` automaticamente.
+4. Abra um **novo** terminal e execute `clidocs`.
 </Steps>
 
-### Opção B: compilar do código-fonte
+![Installer](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-pagina-inicial.png)
+
+![Installer path](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-local-salvar.png)
+
+![Installer update](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-update-exe.png)
+
+![Installer success](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-sucesso.png)
+
+### Download manual
+
+Baixe `clidocs.exe` e `install.exe` direto na [página de releases](https://github.com/F4NT0/clidocs/releases), coloque os dois na mesma pasta e execute `.\install.exe` como **Administrador**.
+
+  </TabItem>
+  <TabItem label="Linux">
+
+:::caution[Linux ainda não é suportado]
+O clidocs usa APIs do Windows (`syscall.NewLazyDLL`, PowerShell e diálogos nativos de arquivo). Por isso não existe binário nem instalador para Linux, e compilar com `GOOS=linux` falha. Hoje não há um comando de instalação nativo para Linux.
+:::
+
+A alternativa é usar o **WSL 2** e abrir o `clidocs.exe` instalado no Windows:
+
+```bash title="WSL"
+/mnt/c/Users/SEU_USUARIO/clidocs/clidocs.exe
+```
+
+  </TabItem>
+  <TabItem label="macOS">
+
+:::caution[macOS ainda não é suportado]
+Pelos mesmos motivos do Linux, não existe binário nem instalador para macOS. Quando houver suporte nativo, o comando de instalação será publicado aqui.
+:::
+
+Acompanhe o andamento na [página de releases](https://github.com/F4NT0/clidocs/releases) do projeto.
+
+  </TabItem>
+</Tabs>
+
+## Compilando do código-fonte
+
+Requer **Go 1.24+**.
 
 ```powershell
 git clone https://github.com/F4NT0/clidocs.git
@@ -53,45 +107,16 @@ go build -o clidocs.exe .
 .\clidocs.exe
 ```
 
-  </TabItem>
-  <TabItem label="Linux">
+## Primeira execução
 
-<Aside type="caution" title="Linux ainda não é suportado">
-
-O clidocs usa APIs do Windows (por exemplo `syscall.NewLazyDLL`, PowerShell e diálogos nativos de arquivo). Ao compilar com `GOOS=linux`, o build falha. Hoje o projeto só roda no **Windows**.
-
-</Aside>
-
-No Linux, a alternativa é usar o **WSL 2** e executar o `clidocs.exe` pelo lado do Windows. Quando houver suporte nativo, esta página será atualizada.
-
-  </TabItem>
-</Tabs>
-
-## Testando o projeto
-
-Depois de instalar, abra o PowerShell e execute:
+Abra qualquer janela do PowerShell e execute:
 
 ```powershell
-# Abre a pasta padrão (%USERPROFILE%\clidocs_snippets)
 clidocs
-
-# Abre a pasta atual como raiz dos snippets
-clidocs .
-
-# Abre uma pasta específica
-clidocs C:\Users\Voce\meus-snippets
 ```
 
-Um roteiro rápido de teste dentro do programa:
+:::note[Pasta dos snippets]
+Os snippets ficam em `%USERPROFILE%\clidocs_snippets\`. A pasta é criada automaticamente na primeira execução e cada subpasta vira uma categoria no painel Folders.
+:::
 
-<Steps>
-1. Na tela inicial, pressione `Enter` para usar a pasta padrão.
-2. No painel **Folders**, pressione `n` e crie uma pasta.
-3. No painel **Snippets** (`Tab`), pressione `n` e crie um arquivo, por exemplo `teste.go`.
-4. Pressione `Enter` para editar no Neovim e salve com `:wq`.
-5. Pressione `/` para buscar e `L` para mostrar os números de linha.
-6. Pressione `:` e digite `help` para ver os comandos do console.
-7. Pressione `q` para sair.
-</Steps>
-
-Os snippets ficam salvos em `%USERPROFILE%\clidocs_snippets\`.
+Próximo passo: veja como [usar o clidocs](/pt-br/projects/clidocs/usage/).

@@ -38,7 +38,9 @@ export default defineConfig({
       pagination: false,
       tableOfContents: false,
       customCss: ['./src/styles/custom.css'],
+      head: [{ tag: 'script', content: "try{localStorage.setItem('starlight-theme','dark')}catch(e){}" }],
       components: {
+        ThemeSelect: './src/components/ThemeSelect.astro',
         PageTitle: './src/components/PageTitle.astro',
       },
       markdown: {
@@ -48,6 +50,7 @@ export default defineConfig({
         starlightVideos(),
         starlightKbd(
           {
+            globalPicker: false,
             types: [
               { id: 'mac', label: 'macOS'},
               { id: 'windows', label: 'Windows', default: true },
@@ -200,6 +203,7 @@ export default defineConfig({
                   items: [
                     'projects/clidocs/intro',
                     'projects/clidocs/install',
+                    'projects/clidocs/usage',
                   ],
                 },
               ],
@@ -221,7 +225,6 @@ export default defineConfig({
             },
           ]),
       ],
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/fantodocs/fantodocs.github.io' }],
 		}),
 	],
 });

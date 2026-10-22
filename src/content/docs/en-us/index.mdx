@@ -7,33 +7,67 @@ hero:
   image:
     html: '<div class="hero-portrait"><img src="/me.png" alt="Photo of Gabriel Fanto Stundner" /></div>'
   actions:
-    - text: My Profile
+    - text: Resume
       link: /en-us/profile/
-      icon: right-arrow
+      icon: document
       variant: secondary
-    - text: Documentation
-      link: /en-us/initial-page/
-      icon: right-arrow
+    - text: Projects
+      link: /en-us/projects/intro/
+      icon: seti:powershell
       variant: secondary
     - text: Github
       link: https://github.com/F4NT0
-      icon: external
+      icon: github
+      variant: secondary
+    - text: Get a free quote
+      link: https://wa.me/5551992738441
+      icon: whatsApp
       variant: secondary
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, Icon } from '@astrojs/starlight/components';
+import { VideoPlayer } from 'starlight-videos/components';
+import MatrixRain from '../../../components/MatrixRain.astro';
 import ProjectLinkCard from '../../../components/ProjectLinkCard.astro';
 
-## Welcome to my website
+<MatrixRain />
 
-<p class="welcome-text">Want to turn an idea into reality? I build custom <strong>websites</strong>, <strong>mobile apps</strong> and <strong>desktop programs</strong> for you or your business. Check out my profile, read the documentation I wrote or reach out on Github.</p>
+<div class="terminal-wrap"><p class="terminal-line" style="--chars: 23">&gt; Welcome to my website</p></div>
 
-## My latest projects
+<p class="welcome-text">I build <strong>custom software</strong> for your personal needs or for your company: websites, apps and computer programs. Reach out on my WhatsApp and bring me your idea, and I will give you a <strong>free quote</strong>.</p>
+
+<div class="cta-wrap"><a class="cta-whatsapp" href="https://wa.me/5551992738441" target="_blank" rel="noopener noreferrer"><Icon name="whatsApp" /><span>Get a free quote</span></a></div>
+
+<div class="loading-title"><span class="spinner" aria-hidden="true"></span><span class="loading-text">whoami</span></div>
+
+<div class="term-window">
+  <p class="term-cmd"><span class="term-prompt">$</span> whoami</p>
+  <div class="nf-info">
+    <p class="nf-head">gabriel@fantodocs</p>
+    <p class="nf-sep">-----------------</p>
+    <p class="nf-line" style="--i: 1"><span class="nf-key">Name</span>: Gabriel Fanto Stundner</p>
+    <p class="nf-line" style="--i: 2"><span class="nf-key">Profession</span>: Software Engineer</p>
+    <p class="nf-line" style="--i: 3"><span class="nf-key">Experience</span>: 6+ years in software development</p>
+    <p class="nf-line" style="--i: 4"><span class="nf-key">Education</span>: Bachelor in Software Engineering (PUCRS)</p>
+    <p class="nf-line" style="--i: 5"><span class="nf-key">Project types</span>: Websites, apps, computer programs and scripts</p>
+    <p class="nf-line" style="--i: 6"><span class="nf-key">Current focus</span>: Software architecture</p>
+    <p class="nf-line" style="--i: 7"><span class="nf-key">Status</span>: <span class="nf-online"><svg class="nf-check" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg> Available for projects</span></p>
+    <div class="nf-palette"><span style="background:#a78bfa"></span><span style="background:#1ee82c"></span><span style="background:#38bdf8"></span><span style="background:#f59e0b"></span><span style="background:#ef4444"></span><span style="background:#e879f9"></span><span style="background:#e6edf3"></span></div>
+  </div>
+  <p class="term-cursor"><span class="term-prompt">gabriel</span><span class="term-path">~/fantodocs</span> &gt; <span class="term-blink">█</span></p>
+</div>
+
+<div class="pipeline-title"><svg class="pl-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="pl-msg">My latest delivered projects</span></div>
 
 <CardGrid>
-	<ProjectLinkCard title="cash-ctrl" subtitle="Personal finance in the terminal." href="https://github.com/F4NT0/cash-ctrl" language="C#" color="#a179dc" type="TUI" />
-	<ProjectLinkCard title="Neovim" subtitle="My Neovim configuration." href="https://github.com/F4NT0/nvim" language="Lua" color="#4263eb" type="TUI" />
-	<ProjectLinkCard title="clidocs" subtitle="Documentation in the terminal." href="https://github.com/F4NT0/clidocs" language="Go" color="#38bdf8" type="TUI" />
+	<ProjectLinkCard title="ControleMateriais" subtitle="Management of electronic materials for disposal." href="https://github.com/lfbreciclagemeletronica/Controle-Materiais" language="C#" color="#a179dc" type="Desktop" typeColor="#9A00FF" />
+	<ProjectLinkCard title="Sunny's Tur" subtitle="Portfolio page for an executive driver." href="https://sunnystur.com" language="Astro" color="#ff5d01" type="Web" typeColor="#f59e0b" />
 	<ProjectLinkCard title="JsonFormatter" subtitle="JSON formatter." href="https://github.com/F4NT0/JsonFormatter" language="C#" color="#a179dc" type="Desktop" typeColor="#9A00FF" />
-	<ProjectLinkCard title="daily-dev-tui" subtitle="TUI to search the Daily.dev API." href="https://github.com/F4NT0/daily-dev-tui" language="Go" color="#38bdf8" type="TUI" />
+	<ProjectLinkCard title="daily-dev-tui" subtitle="TUI to search the Daily.dev API." href="https://github.com/F4NT0/daily-dev-tui" language="Go" color="#38bdf8" type="TUI" typeColor="#86efac" />
 </CardGrid>
+
+<div class="live-title"><span class="live-dot" aria-hidden="true"></span><span class="live-text">Latest video</span></div>
+
+<div class="video-small">
+  <VideoPlayer link="https://youtu.be/UNakI8rlyXY" />
+</div>

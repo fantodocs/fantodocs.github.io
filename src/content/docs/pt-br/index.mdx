@@ -7,33 +7,67 @@ hero:
   image:
     html: '<div class="hero-portrait"><img src="/me.png" alt="Foto de Gabriel Fanto Stundner" /></div>'
   actions:
-    - text: Meu Perfil
+    - text: Currículo
       link: /pt-br/profile/
-      icon: right-arrow
+      icon: document
       variant: secondary
-    - text: Documentações
-      link: /pt-br/initial-page/
-      icon: right-arrow
+    - text: Projetos
+      link: /pt-br/projects/intro/
+      icon: seti:powershell
       variant: secondary
     - text: Github
       link: https://github.com/F4NT0
-      icon: external
+      icon: github
+      variant: secondary
+    - text: Faça seu orçamento gratuito
+      link: https://wa.me/5551992738441
+      icon: whatsApp
       variant: secondary
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, Icon } from '@astrojs/starlight/components';
+import { VideoPlayer } from 'starlight-videos/components';
+import MatrixRain from '../../../components/MatrixRain.astro';
 import ProjectLinkCard from '../../../components/ProjectLinkCard.astro';
 
-## Bem-vindo ao meu site
+<MatrixRain />
 
-<p class="welcome-text">Quer tirar uma ideia do papel? Eu crio <strong>sites</strong>, <strong>aplicativos</strong> e <strong>programas de computador</strong> sob medida para você ou para o seu negócio. Explore meu perfil, confira as documentações que escrevi ou fale comigo pelo Github.</p>
+<div class="terminal-wrap"><p class="terminal-line" style="--chars: 23">&gt; Bem-vindo ao meu site</p></div>
 
-## Meus últimos projetos
+<p class="welcome-text">Eu desenvolvo <strong>software personalizado</strong> para a sua necessidade pessoal ou para a sua empresa: sites, aplicativos e programas de computador. Entre em contato pelo meu WhatsApp e traga a sua ideia que eu farei um <strong>orçamento gratuito</strong> para você.</p>
+
+<div class="cta-wrap"><a class="cta-whatsapp" href="https://wa.me/5551992738441" target="_blank" rel="noopener noreferrer"><Icon name="whatsApp" /><span>Faça seu orçamento gratuito</span></a></div>
+
+<div class="loading-title"><span class="spinner" aria-hidden="true"></span><span class="loading-text">Quem sou eu</span></div>
+
+<div class="term-window">
+  <p class="term-cmd"><span class="term-prompt">$</span> whoami</p>
+  <div class="nf-info">
+    <p class="nf-head">gabriel@fantodocs</p>
+    <p class="nf-sep">-----------------</p>
+    <p class="nf-line" style="--i: 1"><span class="nf-key">Nome</span>: Gabriel Fanto Stundner</p>
+    <p class="nf-line" style="--i: 2"><span class="nf-key">Profissão</span>: Engenheiro de Software</p>
+    <p class="nf-line" style="--i: 3"><span class="nf-key">Experiência</span>: 6+ anos em desenvolvimento de software</p>
+    <p class="nf-line" style="--i: 4"><span class="nf-key">Formação</span>: Bacharel em Engenharia de Software (PUCRS)</p>
+    <p class="nf-line" style="--i: 5"><span class="nf-key">Tipos de projetos</span>: Sites, aplicativos, programas de computador e scripts</p>
+    <p class="nf-line" style="--i: 6"><span class="nf-key">Foco atual</span>: Arquitetura de software</p>
+    <p class="nf-line" style="--i: 7"><span class="nf-key">Status</span>: <span class="nf-online"><svg class="nf-check" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg> Disponível para projetos</span></p>
+    <div class="nf-palette"><span style="background:#a78bfa"></span><span style="background:#1ee82c"></span><span style="background:#38bdf8"></span><span style="background:#f59e0b"></span><span style="background:#ef4444"></span><span style="background:#e879f9"></span><span style="background:#e6edf3"></span></div>
+  </div>
+  <p class="term-cursor"><span class="term-prompt">gabriel</span><span class="term-path">~/fantodocs</span> &gt; <span class="term-blink">█</span></p>
+</div>
+
+<div class="pipeline-title"><svg class="pl-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="pl-msg">Meus últimos projetos entregues</span></div>
 
 <CardGrid>
-	<ProjectLinkCard title="cash-ctrl" subtitle="Financeiro pelo terminal." href="https://github.com/F4NT0/cash-ctrl" language="C#" color="#a179dc" type="TUI" />
-	<ProjectLinkCard title="Neovim" subtitle="Minha configuração do Neovim." href="https://github.com/F4NT0/nvim" language="Lua" color="#4263eb" type="TUI" />
-	<ProjectLinkCard title="clidocs" subtitle="Documentação pelo Terminal." href="https://github.com/F4NT0/clidocs" language="Go" color="#38bdf8" type="TUI" />
+	<ProjectLinkCard title="ControleMateriais" subtitle="Gerenciamento de materiais eletrônicos para descarte." href="https://github.com/lfbreciclagemeletronica/Controle-Materiais" language="C#" color="#a179dc" type="Desktop" typeColor="#9A00FF" />
+	<ProjectLinkCard title="Sunny's Tur" subtitle="Página de portfolio de motorista executivo." href="https://sunnystur.com" language="Astro" color="#ff5d01" type="Web" typeColor="#f59e0b" />
 	<ProjectLinkCard title="JsonFormatter" subtitle="Formatador de JSON." href="https://github.com/F4NT0/JsonFormatter" language="C#" color="#a179dc" type="Desktop" typeColor="#9A00FF" />
-	<ProjectLinkCard title="daily-dev-tui" subtitle="TUI para pesquisar na API do Daily.dev." href="https://github.com/F4NT0/daily-dev-tui" language="Go" color="#38bdf8" type="TUI" />
+	<ProjectLinkCard title="daily-dev-tui" subtitle="TUI para pesquisar na API do Daily.dev." href="https://github.com/F4NT0/daily-dev-tui" language="Go" color="#38bdf8" type="TUI" typeColor="#86efac" />
 </CardGrid>
+
+<div class="live-title"><span class="live-dot" aria-hidden="true"></span><span class="live-text">Último vídeo</span></div>
+
+<div class="video-small">
+  <VideoPlayer link="https://youtu.be/UNakI8rlyXY" />
+</div>
