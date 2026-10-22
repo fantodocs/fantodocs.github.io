@@ -358,9 +358,6 @@ main .hero .actions a.sl-link-button {
   border-width: 1px !important;
   background: transparent !important;
 }
-html[data-theme] main .hero .actions a.sl-link-button[href$="/profile/"] { color: #3b82ff !important; border-color: #3b82ff !important; }
-html[data-theme] main .hero .actions a.sl-link-button[href$="/projects/intro/"] { color: #ff3b3b !important; border-color: #ff3b3b !important; }
-html[data-theme] main .hero .actions a.sl-link-button[href^="https://github.com"] { color: #1ee82c !important; border-color: #1ee82c !important; }
 main .hero .actions a.sl-link-button:hover { filter: brightness(1.25); box-shadow: 0 0 12px currentColor; }
 
 /* Retrato em hexágono no hero */
@@ -534,7 +531,6 @@ html[data-theme='dark'] main .hero .tagline { color: #4ade80 !important; }
   main .hero h1 { font-size: 1.6rem !important; }
   main .hero .tagline { font-size: 0.8rem !important; letter-spacing: 0.2em; }
   main .hero .actions a.sl-link-button { padding: 0.45rem 0.7rem !important; font-size: 0.8rem !important; }
-  main .hero .actions a.sl-link-button:not([href*='wa.me']):not([href^='https://github.com']) svg { display: none; }
 }
 
 /* Hero: imagem centralizada e botões */
@@ -563,12 +559,9 @@ main .hero .actions a.sl-link-button {
   font-weight: 600;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)) !important;
 }
-html[data-theme] main .hero .actions a.sl-link-button[href*='wa.me'] {
+main .hero .actions a.sl-link-button[href*='wa.me'] {
   grid-column: 1 / -1;
   justify-self: center;
-  color: #25d366 !important;
-  border-color: #25d366 !important;
-  background: linear-gradient(135deg, rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0.05)) !important;
 }
 @media (max-width: 49.99rem) {
   main .hero .actions { gap: 0.5rem !important; }
@@ -591,5 +584,243 @@ main .hero .actions a.sl-link-button:hover {
   filter: none;
   box-shadow: none !important;
 }
-html[data-theme] main .hero .actions a.sl-link-button[href*='wa.me'] { background: transparent !important; }
-html[data-theme] main .hero .actions a.sl-link-button[href*='wa.me']:hover { background: rgba(37, 211, 102, 0.08) !important; }
+
+/* Mensagem estilo terminal na página inicial */
+.terminal-wrap { display: flex; justify-content: center; margin: 2rem 0 0.5rem; }
+.terminal-line {
+  margin: 0 !important;
+  font-family: 'JetBrainsMonoNerd', 'Courier New', monospace;
+  font-size: clamp(1.1rem, 3.5vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1ee82c;
+  text-shadow: 0 0 6px #1ee82c, 0 0 16px rgba(30, 232, 44, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 0.12em solid #1ee82c;
+  width: calc(var(--chars) * 1ch + var(--chars) * 0.08em);
+  max-width: 100%;
+  animation: terminal-typing 2.5s steps(var(--chars)) 0.3s both, terminal-caret 0.8s steps(1) infinite;
+}
+@keyframes terminal-typing { from { width: 0; } }
+@keyframes terminal-caret { 50% { border-color: transparent; } }
+@media (prefers-reduced-motion: reduce) { .terminal-line { animation: none; } }
+
+/* Botões do site: retangulares, mesma cor, borda verde (escuro) / roxa (claro) no hover */
+:root {
+  --btn-bg: rgba(255, 255, 255, 0.04);
+  --btn-border: #3a3f45;
+  --btn-text: #ffffff;
+  --btn-hover: #1ee882;
+}
+html[data-theme='light'] {
+  --btn-bg: #f4f4f6;
+  --btn-border: #cfd3d8;
+  --btn-text: #000000;
+  --btn-hover: #8b5cf6;
+}
+html[data-theme] main .hero .actions a.sl-link-button,
+html[data-theme] a.sl-link-button,
+html[data-theme] .back-to-topic,
+html[data-theme] .notfound-btn,
+html[data-theme] .choice,
+html[data-theme] .back {
+  background: var(--btn-bg) !important;
+  border: 1px solid var(--btn-border) !important;
+  border-radius: 12px !important;
+  color: var(--btn-text) !important;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+html[data-theme] main .hero .actions a.sl-link-button svg { color: var(--btn-text) !important; }
+html[data-theme] main .hero .actions a.sl-link-button:hover,
+html[data-theme] a.sl-link-button:hover,
+html[data-theme] .back-to-topic:hover,
+html[data-theme] .notfound-btn:hover,
+html[data-theme] .choice:hover,
+html[data-theme] .back:hover {
+  border-color: var(--btn-hover) !important;
+  color: var(--btn-text) !important;
+  background: var(--btn-bg) !important;
+  filter: none;
+}
+
+/* Título do site em verde */
+.site-title, .site-title:hover { color: #1ee82c !important; }
+
+/* Ícones dos botões do hero à esquerda */
+main .hero .actions a.sl-link-button { flex-direction: row-reverse; }
+
+/* Título estilo loading (roxo) */
+.loading-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 2.5rem 0 1rem;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: 700;
+  color: #a78bfa;
+  text-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+  letter-spacing: 0.06em;
+}
+.loading-title .spinner {
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 3px solid rgba(167, 139, 250, 0.25);
+  border-top-color: #a78bfa;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+.loading-title .loading-text::after {
+  content: '';
+  display: inline-block;
+  width: 1.5ch;
+  text-align: left;
+  animation: dots 1.4s steps(4) infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+/* Terminal com saída do whoami */
+.term-window {
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--btn-border);
+  border-left: 4px solid #a78bfa;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  font-family: 'JetBrainsMonoNerd', monospace;
+  font-size: 0.95rem;
+}
+.term-window p { margin: 0.35rem 0 !important; }
+.term-prompt { color: #1ee82c; margin-right: 0.4rem; }
+.term-key { color: #a78bfa; margin-right: 0.4rem; }
+.term-cmd { color: #ffffff; }
+.term-out {
+  opacity: 0;
+  animation: term-reveal 0.4s ease forwards;
+  animation-delay: calc(var(--i) * 0.7s + 0.6s);
+}
+.term-blink { animation: terminal-caret-text 0.9s steps(1) infinite; color: #1ee82c; }
+@keyframes term-reveal { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+@keyframes terminal-caret-text { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .term-out { opacity: 1; animation: none; }
+  .loading-title .spinner, .loading-title .loading-text::after, .term-blink { animation: none; }
+}
+
+/* whoami estilo neofetch (somente texto) */
+.term-window { max-width: 38rem; background: rgba(28, 20, 34, 0.55); }
+.nf-info { margin: 0.6rem 0 0.8rem; }
+.nf-head { color: #a78bfa; font-weight: 700; }
+.nf-sep { color: #6b7280; }
+.nf-line { opacity: 0; animation: term-reveal 0.4s ease forwards; animation-delay: calc(var(--i) * 0.25s + 0.4s); }
+.nf-key { color: #a78bfa; font-weight: 700; }
+.nf-palette { display: flex; margin-top: 0.9rem; }
+.nf-palette span { width: 2rem; height: 1.1rem; }
+.term-path { color: #9ca3af; margin-right: 0.4rem; }
+.term-cursor .term-prompt { color: #9ca3af; }
+@media (prefers-reduced-motion: reduce) { .nf-line { opacity: 1; animation: none; } }
+
+/* Status online piscando */
+.nf-online { color: #1ee82c; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; text-shadow: 0 0 8px rgba(30, 232, 44, 0.5); animation: online-blink 1.4s ease-in-out infinite; }
+.nf-check { flex-shrink: 0; }
+@keyframes online-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .nf-online { animation: none; } }
+
+/* Botão de WhatsApp no corpo da página inicial */
+.cta-wrap { display: flex; justify-content: center; margin: 0 0 1.5rem; }
+html[data-theme] .cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.4rem;
+  padding: 0.4rem 1rem;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 12px;
+  color: var(--btn-text);
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+html[data-theme] .cta-whatsapp:hover { border-color: var(--btn-hover); }
+.cta-whatsapp svg { width: 1.2em; height: 1.2em; }
+
+/* Título estilo pipeline concluída (GitLab) */
+.pipeline-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 0.75rem;
+  margin: 2rem 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--sl-color-hairline);
+  font-size: clamp(1.05rem, 3.5vw, 1.5rem);
+}
+.pipeline-title .pl-icon { width: 1.9rem; height: 1.9rem; color: #3fb86f; flex-shrink: 0; }
+.pipeline-title .pl-msg { color: #ffffff; font-weight: 700; }
+.pipeline-title .pl-sub { color: #9ca3af; font-size: 0.8em; }
+.pipeline-title .pl-sub::before { content: '· '; }
+
+/* Ícone >_ fino no botão Projetos */
+main .hero .actions a.sl-link-button[href$="/projects/intro/"] svg { display: none; }
+main .hero .actions a.sl-link-button[href$="/projects/intro/"]::after {
+  content: '';
+  width: 1.3em;
+  height: 1.3em;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8l5 4-5 4'/%3E%3Cpath d='M13 17h6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8l5 4-5 4'/%3E%3Cpath d='M13 17h6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Título com indicador de live piscando */
+.live-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin: 2rem 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--sl-color-hairline);
+  font-size: clamp(1.05rem, 3.5vw, 1.5rem);
+  color: #ffffff;
+  font-weight: 700;
+}
+.live-dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  animation: live-pulse 1.4s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+  50% { opacity: 0.4; box-shadow: 0 0 0 7px rgba(239, 68, 68, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+
+/* Vídeo pequeno com bordas arredondadas */
+.video-small {
+  max-width: 28rem;
+  margin: 0 auto 2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--btn-border);
+}
+.video-small * { border-radius: 0; }
+.video-small iframe, .video-small img, .video-small video { display: block; width: 100%; }
+
+.live-title .live-text { color: #ef4444; text-shadow: 0 0 8px rgba(239, 68, 68, 0.5); animation: live-text-blink 1.4s ease-in-out infinite; }
+@keyframes live-text-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+@media (prefers-reduced-motion: reduce) { .live-title .live-text { animation: none; } }

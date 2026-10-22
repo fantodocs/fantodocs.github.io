@@ -1,9 +1,11 @@
 ---
 title: Installing clidocs
-description: How to install and test clidocs on Windows and Linux
+description: How to install clidocs with a single command on Windows, Linux and macOS
 ---
 
-import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+![clidocs](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/new-images/cover.png)
 
 ## Requirements
 
@@ -11,11 +13,14 @@ import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 |---|---|
 | **Windows 10 / 11 (64-bit)** | Supported OS |
 | **PowerShell 5.1+** | Built into Windows, used for file dialogs |
-| **Neovim (`nvim`)** | Editing snippets |
-| **Git** | GitHub sync |
+| **Neovim (`nvim`)** | Editing snippets (`Enter` / `e`) |
+| **Git** | GitHub sync (`g`) |
 | **Windows Terminal (`wt`)** | Recommended, opens Neovim in a new tab |
-| **Nerd Font** (e.g. JetBrainsMono) | Folder icons |
+| **VS Code (`code`)** | Optional, opens files with `v` |
+| **Nerd Font** (JetBrainsMono) | Folder icons |
 | **Go 1.24+** | Only to build from source |
+
+Install the prerequisites with `winget`:
 
 ```powershell
 winget install Neovim.Neovim
@@ -23,27 +28,76 @@ winget install Git.Git
 winget install Microsoft.WindowsTerminal
 ```
 
-## Installation
+:::tip[Nerd Font]
+Download [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads), install the `.ttf` files and set the font in the Windows Terminal profile settings.
+:::
+
+## One-command installation
+
+Choose your operating system:
 
 <Tabs>
   <TabItem label="Windows">
 
-### Option A: installer (recommended)
+Open **PowerShell** and paste the command below. It downloads `clidocs.exe` and the installer (`install.exe`) from the latest release into `%USERPROFILE%\clidocs` and opens the installer as Administrator.
+
+```powershell title="PowerShell"
+$d = "$env:USERPROFILE\clidocs"
+New-Item -ItemType Directory -Force $d | Out-Null
+iwr https://github.com/F4NT0/clidocs/releases/latest/download/clidocs.exe -OutFile "$d\clidocs.exe"
+iwr https://github.com/F4NT0/clidocs/releases/latest/download/install.exe -OutFile "$d\install.exe"
+Start-Process "$d\install.exe" -WorkingDirectory $d -Verb RunAs
+```
+
+Then follow the installer wizard:
 
 <Steps>
-1. Download `clidocs.exe` and `clidocs-install.exe` from the [releases page](https://github.com/F4NT0/clidocs/releases).
-2. Place both files in the same folder.
-3. Run the installer as **Administrator**:
-
-   ```powershell
-   .\clidocs-install.exe
-   ```
-
-4. Choose the installation folder and confirm. `clidocs` is added to the `PATH` automatically.
-5. Open a **new** terminal and run `clidocs`.
+1. Select the installation path and click **Next**.
+2. If there is already an `.exe` in the location (update), the installer asks whether to replace it.
+3. Wait for the success message. `clidocs` is added to the `PATH` automatically.
+4. Open a **new** terminal and run `clidocs`.
 </Steps>
 
-### Option B: build from source
+![Installer](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-pagina-inicial.png)
+
+![Installer path](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-local-salvar.png)
+
+![Installer update](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-update-exe.png)
+
+![Installer success](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-sucesso.png)
+
+### Manual download
+
+Download `clidocs.exe` and `install.exe` from the [releases page](https://github.com/F4NT0/clidocs/releases), put both in the same folder and run `.\install.exe` as **Administrator**.
+
+  </TabItem>
+  <TabItem label="Linux">
+
+:::caution[Linux is not supported yet]
+clidocs uses Windows APIs (`syscall.NewLazyDLL`, PowerShell and native file dialogs). Because of that there is no binary or installer for Linux, and building with `GOOS=linux` fails. Today there is no native install command for Linux.
+:::
+
+The workaround is to use **WSL 2** and run the `clidocs.exe` installed on Windows:
+
+```bash title="WSL"
+/mnt/c/Users/YOUR_USER/clidocs/clidocs.exe
+```
+
+  </TabItem>
+  <TabItem label="macOS">
+
+:::caution[macOS is not supported yet]
+For the same reasons as Linux, there is no binary or installer for macOS. When native support lands, the install command will be published here.
+:::
+
+Follow progress on the project [releases page](https://github.com/F4NT0/clidocs/releases).
+
+  </TabItem>
+</Tabs>
+
+## Building from source
+
+Requires **Go 1.24+**.
 
 ```powershell
 git clone https://github.com/F4NT0/clidocs.git
@@ -53,45 +107,16 @@ go build -o clidocs.exe .
 .\clidocs.exe
 ```
 
-  </TabItem>
-  <TabItem label="Linux">
+## First run
 
-<Aside type="caution" title="Linux is not supported yet">
-
-clidocs relies on Windows APIs (for example `syscall.NewLazyDLL`, PowerShell and native file dialogs). Building with `GOOS=linux` fails. Today the project only runs on **Windows**.
-
-</Aside>
-
-On Linux, the alternative is to use **WSL 2** and run `clidocs.exe` from the Windows side. This page will be updated once native support exists.
-
-  </TabItem>
-</Tabs>
-
-## Testing the project
-
-After installing, open PowerShell and run:
+Open any PowerShell window and run:
 
 ```powershell
-# Open the default folder (%USERPROFILE%\clidocs_snippets)
 clidocs
-
-# Use the current folder as the snippets root
-clidocs .
-
-# Open a specific folder
-clidocs C:\Users\You\my-snippets
 ```
 
-A quick test run inside the app:
+:::note[Snippets folder]
+Snippets are stored in `%USERPROFILE%\clidocs_snippets\`. The folder is created automatically on first run and each sub-folder becomes a category in the Folders panel.
+:::
 
-<Steps>
-1. On the splash screen, press `Enter` to use the default folder.
-2. In the **Folders** panel, press `n` and create a folder.
-3. In the **Snippets** panel (`Tab`), press `n` and create a file, for example `test.go`.
-4. Press `Enter` to edit it in Neovim and save with `:wq`.
-5. Press `/` to search and `L` to toggle line numbers.
-6. Press `:` and type `help` to see the console commands.
-7. Press `q` to quit.
-</Steps>
-
-Snippets are stored in `%USERPROFILE%\clidocs_snippets\`.
+Next step: learn how to [use clidocs](/en-us/projects/clidocs/usage/).
