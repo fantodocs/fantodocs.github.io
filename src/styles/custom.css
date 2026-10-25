@@ -824,3 +824,70 @@ main .hero .actions a.sl-link-button[href$="/projects/intro/"]::after {
 .live-title .live-text { color: #ef4444; text-shadow: 0 0 8px rgba(239, 68, 68, 0.5); animation: live-text-blink 1.4s ease-in-out infinite; }
 @keyframes live-text-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 @media (prefers-reduced-motion: reduce) { .live-title .live-text { animation: none; } }
+
+/* Página inicial das documentações */
+main:has(.docs-hero) h1#_top { display: none; }
+.docs-hero { display: flex; flex-direction: column; align-items: center; margin-top: 1rem; }
+.docs-logo { width: min(140px, 40vw); height: auto; margin: 0 !important; filter: drop-shadow(0 0 12px rgba(30, 232, 44, 0.5)); }
+.docs-logo-cursor { animation: blink 1.2s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .docs-logo-cursor { animation: none; } }
+
+/* Título em ASCII (ANSI Shadow) */
+main:has(.ascii-title) h1#_top { display: none; }
+.ascii-title { display: flex; justify-content: center; margin: 1.5rem 0 2rem; overflow: visible; }
+.ascii-title pre {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--ascii-color, #1ee882);
+  font-family: 'Cascadia Mono', Consolas, 'DejaVu Sans Mono', Menlo, 'Courier New', monospace;
+  font-weight: 400;
+  font-variant-ligatures: none;
+  font-kerning: none;
+  text-rendering: geometricPrecision;
+  font-size: calc(clamp(0.35rem, 1.9vw, 1rem) * var(--ascii-scale, 1));
+  line-height: 1.05;
+  letter-spacing: 0;
+  white-space: pre;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--ascii-color, #1ee882) 45%, transparent);
+  overflow: visible !important;
+  scrollbar-width: none;
+}
+
+/* Imagens do conteúdo dentro de uma moldura com bordas arredondadas */
+.sl-markdown-content img:not(:where(.image-card *, .project-card *, .doc-card *, .hero-portrait *, .docs-logo, .welcome-text *, [width="16"], [width="28"], [width="48"])) {
+  border: 1px solid var(--btn-border, #3a3f45);
+  border-radius: 14px;
+  padding: 0.35rem;
+  background: rgba(255, 255, 255, 0.03);
+  box-sizing: border-box;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Títulos # e ## no estilo do cargo da página inicial */
+h1#_top,
+.sl-markdown-content h2 {
+  font-size: 1rem !important;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #4ade80 !important;
+}
+h1#_top { font-size: 1.2rem !important; }
+@media (max-width: 49.99rem) {
+  h1#_top, .sl-markdown-content h2 { letter-spacing: 0.15em; }
+}
+
+/* Título ASCII desenhado em SVG (independe de fonte) */
+.ascii-title .ascii-svg {
+  display: block;
+  width: calc(var(--cols, 52) * clamp(0.21rem, 1.14vw, 0.6rem) * var(--ascii-scale, 1));
+  max-width: 100%;
+  height: auto;
+  margin: 0 !important;
+  color: var(--ascii-color, #1ee882);
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--ascii-color, #1ee882) 45%, transparent));
+}

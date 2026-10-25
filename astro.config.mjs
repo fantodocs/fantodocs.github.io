@@ -199,6 +199,34 @@ export default defineConfig({
               items: [
                 'projects/intro',
                 {
+                  label: 'Joinfut',
+                  items: ['projects/joinfut/intro'],
+                },
+                {
+                  label: 'ControleMateriais',
+                  items: ['projects/controle-materiais/intro'],
+                },
+                {
+                  label: "Sunny's Tur",
+                  items: ['projects/sunnys-tur/intro'],
+                },
+                {
+                  label: 'cash-ctrl',
+                  items: ['projects/cash-ctrl/intro'],
+                },
+                {
+                  label: 'Neovim',
+                  items: ['projects/neovim/intro'],
+                },
+                {
+                  label: 'JsonFormatter',
+                  items: ['projects/jsonformatter/intro'],
+                },
+                {
+                  label: 'daily-dev-tui',
+                  items: ['projects/daily-dev-tui/intro'],
+                },
+                {
                   label: 'clidocs',
                   items: [
                     'projects/clidocs/intro',

@@ -3,6 +3,95 @@ title: Projetos
 description: Meus projetos pessoais e profissionais
 ---
 
-Bem-vindo à área de projetos! Aqui vou reunir os projetos que desenvolvo, com detalhes sobre o que fazem e como foram construídos.
+import { CardGrid } from '@astrojs/starlight/components';
+import ImageCard from '../../../../components/ImageCard.astro';
 
-Em breve, novos conteúdos.
+<div class="docs-hero">
+  <svg class="docs-logo" viewBox="0 0 24 24" fill="none" stroke="#1ee82c" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-label="FantoDocs"><path d="M5 7l5 5l-5 5" /><path class="docs-logo-cursor" d="M12 19l7 0" /></svg>
+  <div class="terminal-wrap"><p class="terminal-line" style="--chars: 10">&gt; Projetos</p></div>
+</div>
+
+<p class="welcome-text">Esta é a página inicial dos projetos desenvolvidos pelo engenheiro de software <strong>Gabriel Fanto Stundner</strong>. Escolha um projeto abaixo para ver a documentação dele.</p>
+
+### Projetos desenvolvidos para empresas
+
+<CardGrid>
+  <ImageCard
+    href="/pt-br/projects/joinfut/intro/"
+    image="/projects/joinfut.jpg"
+    title="Joinfut"
+    subtitle="Aplicativo em Flutter para auxiliar novos jogadores de futebol."
+    language="Flutter"
+    languageIcon="flutter"
+    badges={[{ text: 'App', color: '#3b82f6' }]}
+  />
+  <ImageCard
+    href="/pt-br/projects/controle-materiais/intro/"
+    image="/projects/controle-materiais.png"
+    title="ControleMateriais"
+    subtitle="Gerenciamento de materiais eletrônicos para descarte."
+    language="C#"
+    languageIcon="csharp"
+    badges={[{ text: 'Desktop', color: '#9A00FF' }]}
+  />
+  <ImageCard
+    href="/pt-br/projects/sunnys-tur/intro/"
+    image="/projects/sunnytur.png"
+    fit="contain"
+    title="Sunny's Tur"
+    subtitle="Página de portfolio de motorista executivo."
+    language="Astro"
+    languageIcon="astro"
+    badges={[{ text: 'Web', color: '#f59e0b' }]}
+  />
+</CardGrid>
+
+### Projetos pessoais
+
+<CardGrid>
+  <ImageCard
+    href="/pt-br/projects/cash-ctrl/intro/"
+    image="/projects/cash-ctrl.png"
+    title="cash-ctrl"
+    subtitle="Financeiro pelo terminal."
+    language="C#"
+    languageIcon="csharp"
+    badges={[{ text: 'TUI', color: '#86efac' }]}
+  />
+  <ImageCard
+    href="/pt-br/projects/neovim/intro/"
+    image="/projects/neovim.png"
+    title="Neovim"
+    subtitle="Minha configuração do Neovim."
+    language="lua"
+    languageIcon="lua"
+    badges={[{ text: 'TUI', color: '#86efac' }]}
+  />
+  <ImageCard
+    href="/pt-br/projects/clidocs/intro/"
+    image="/projects/clidocs.png"
+    title="clidocs"
+    subtitle="Documentação pelo Terminal."
+    language="go"
+    languageIcon="go"
+    badges={[{ text: 'TUI', color: '#86efac' }]}
+  />
+  <ImageCard
+    href="/pt-br/projects/jsonformatter/intro/"
+    image="/projects/jsonformatter.png"
+    title="JsonFormatter"
+    subtitle="Formatador de JSON."
+    language="C#"
+    languageIcon="csharp"
+    badges={[{ text: 'Desktop', color: '#9A00FF' }]}
+  />
+  <ImageCard
+    href="/pt-br/projects/daily-dev-tui/intro/"
+    image="/projects/daily-dev-tui.png"
+    title="daily-dev-tui"
+    subtitle="TUI para pesquisar na API do Daily.dev."
+    language="go"
+    languageIcon="go"
+    badges={[{ text: 'TUI', color: '#86efac' }]}
+  />
+</CardGrid>

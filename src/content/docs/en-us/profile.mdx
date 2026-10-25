@@ -3,9 +3,7 @@ title: My Profile
 description: EN-US version of my profile
 ---
 
-import { LinkCard, CardGrid } from '@astrojs/starlight/components';
-import { Badge } from '@astrojs/starlight/components';
-import ImageCard from '../../../components/ImageCard.astro';
+
 
 <table align="center"><tr><td align="center" width="9999">
     <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/me2.png`} alt="Gabriel Stundner" width="300" /> 
@@ -39,90 +37,62 @@ import ImageCard from '../../../components/ImageCard.astro';
 
 ### Goals
 
-- <Badge text="Short term" variant="caution" />: Mid-level .NET Software Engineer.
-- <Badge text="Long term" variant="success" />: Software Architect.
+<div class="goals-container">
+  <div class="goal-card">
+    <div class="goal-icon">🎯</div>
+    <div class="goal-label">Short term</div>
+    <div class="goal-text">Senior Software Engineer</div>
+  </div>
+  <div class="goal-card">
+    <div class="goal-icon">🚀</div>
+    <div class="goal-label">Long term</div>
+    <div class="goal-text">Software Architect</div>
+  </div>
+</div>
 
-### Projects built for companies
+<style is:global>{`
+  .goals-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .goal-card {
+    padding: 0.75rem;
+    text-align: center;
+  }
+  .goal-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .goal-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #4ade80;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+  }
+  .goal-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  :root[data-theme='light'] .goal-label {
+    color: #16a34a;
+  }
+  :root[data-theme='light'] .goal-text {
+    color: #07090a;
+  }
+`}</style>
 
-<CardGrid>
-  <ImageCard
-    href="https://www.instagram.com/join.fut/"
-    image="/projects/joinfut.jpg"
-    title="Joinfut"
-    subtitle="Flutter app that helps new football players get started."
-    language="Flutter"
-    languageIcon="flutter"
-    badges={[{ text: 'App', color: '#3b82f6'}]}
-  />
-  <ImageCard
-    href="https://github.com/lfbreciclagemeletronica/Controle-Materiais"
-    image="/projects/controle-materiais.png"
-    title="ControleMateriais"
-    subtitle="Management of electronic materials for disposal."
-    language="C#"
-    languageIcon="csharp"
-    badges={[{ text: 'Desktop', color: '#9A00FF'}]}
-  />
-  <ImageCard
-    href="https://sunnystur.com"
-    image="/projects/sunnytur.png"
-    fit="contain"
-    title="Sunny's Tur"
-    subtitle="Portfolio page for an executive driver."
-    language="Astro"
-    languageIcon="astro"
-    badges={[{ text: 'Web', color: '#f59e0b'}]}
-  />
-</CardGrid>
+### About me
+
+I am passionate about technology and developing solutions that solve real problems. As a backend-focused Software Engineer, I work on creating scalable, secure, and high-performance systems using modern microservice-based architectures.
+
+Throughout my career, I have developed and participated in corporate management projects, process automation, and applications focused on security and system integration. My main stack includes .NET, Go, and Spring Boot, working with languages such as C#, Java, Go, and Python to build APIs, distributed services, and robust enterprise solutions.
+
+I have a strong interest in software architecture, cloud computing, DevOps, and platform engineering, always seeking to apply best development practices to deliver products with quality, maintainability, and excellent experience for users and technical teams.
 
 
-### Personal projects
-
-<CardGrid>
-  <ImageCard
-    href="https://github.com/F4NT0/cash-ctrl"
-    image="/projects/cash-ctrl.png"
-    title="cash-ctrl"
-    subtitle="Personal finance in the terminal."
-    language="C#"
-    languageIcon="csharp"
-    badges={[{ text: 'TUI', color: '#86efac' }]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/nvim"
-    image="/projects/neovim.png"
-    title="Neovim"
-    language="lua"
-    languageIcon="lua"
-    subtitle="My Neovim configuration."
-    badges={[{ text: 'TUI', color: '#86efac'}]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/clidocs"
-    image="/projects/clidocs.png"
-    title="clidocs"
-    subtitle="Documentation in the terminal."
-    language="go"
-    languageIcon="go"
-    badges={[{ text: 'TUI', color: '#86efac'}]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/JsonFormatter"
-    image="/projects/jsonformatter.png"
-    title="JsonFormatter"
-    subtitle="JSON formatter."
-    language="C#"
-    languageIcon="csharp"
-    badges={[{ text: 'Desktop', color: '#9A00FF'}]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/daily-dev-tui"
-    image="/projects/daily-dev-tui.png"
-    title="daily-dev-tui"
-    subtitle="TUI to search the Daily.dev API."
-    language="go"
-    languageIcon="go"
-    badges={[{ text: 'TUI', color: '#86efac'}]}
-  />
-</CardGrid>
 

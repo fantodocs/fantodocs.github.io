@@ -1,5 +1,6 @@
 ---
 import Default from '@astrojs/starlight/components/PageTitle.astro';
+import PageTabs from './PageTabs.astro';
 
 const id = Astro.locals.starlightRoute.entry.id.replace(/\.mdx?$/, '');
 const [lang, topic] = id.split('/');
@@ -20,6 +21,7 @@ const href = isTopicIntro ? `${base}/${lang}/initial-page/` : `${base}/${lang}/$
 const showBack = label && backLabel;
 ---
 
+<PageTabs />
 {showBack && (
   <a class="back-to-topic" href={href}>
     <span aria-hidden="true">←</span> {backLabel}
