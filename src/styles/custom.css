@@ -606,6 +606,57 @@ main .hero .actions a.sl-link-button:hover {
 @keyframes terminal-caret { 50% { border-color: transparent; } }
 @media (prefers-reduced-motion: reduce) { .terminal-line { animation: none; } }
 
+/* Título principal da página estilo terminal (h1) */
+h1#_top {
+  font-family: 'JetBrainsMonoNerd', 'Courier New', monospace;
+  color: #1ee82c !important;
+  text-shadow: 0 0 6px #1ee82c, 0 0 16px rgba(30, 232, 44, 0.5);
+  text-transform: none !important;
+  letter-spacing: 0.08em !important;
+  animation: terminal-typing-page 0.6s steps(24) 0.05s both;
+}
+h1#_top::before {
+  content: '> ';
+  white-space: pre;
+}
+h1#_top::after {
+  content: '_';
+  margin-left: 0.05em;
+  animation: terminal-caret-bg 0.6s steps(1) infinite;
+}
+@keyframes terminal-typing-page { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes terminal-caret-bg { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  h1#_top { animation: none; }
+  h1#_top::after { animation: none; display: none; }
+}
+html[data-theme='light'] h1#_top {
+  color: #16a34a !important;
+  text-shadow: 0 0 6px #16a34a, 0 0 16px rgba(22, 163, 74, 0.5);
+}
+
+/* Nome do profissional no hero: branco, grande, sem efeito de terminal */
+main .hero h1#_top {
+  font-family: inherit;
+  color: #ffffff !important;
+  text-shadow: none;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem) !important;
+  font-weight: 700;
+  letter-spacing: 0.04em !important;
+  white-space: nowrap;
+  animation: none;
+  clip-path: none;
+}
+main .hero h1#_top::before,
+main .hero h1#_top::after { display: none; }
+html[data-theme='light'] main .hero h1#_top {
+  color: #000000 !important;
+  text-shadow: none;
+}
+@media (max-width: 49.99rem) {
+  main .hero h1#_top { font-size: clamp(1rem, 5.4vw, 1.6rem) !important; letter-spacing: 0.02em !important; }
+}
+
 /* Botões do site: retangulares, mesma cor, borda verde (escuro) / roxa (claro) no hover */
 :root {
   --btn-bg: rgba(255, 255, 255, 0.04);
@@ -890,4 +941,33 @@ h1#_top { font-size: 1.2rem !important; }
   margin: 0 !important;
   color: var(--ascii-color, #1ee882);
   filter: drop-shadow(0 0 8px color-mix(in srgb, var(--ascii-color, #1ee882) 45%, transparent));
+}
+
+/* Espaço para imagens nas etapas de instalação */
+.step-image-slot { margin: 0.75rem 0 1rem; }
+.step-image-slot img { display: block; max-width: 100%; height: auto; }
+.step-image-slot.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  border: 1px dashed var(--btn-border, #3a3f45);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+.step-image-slot.empty img { display: none; }
+.step-image-slot.empty::before { content: 'imagem'; }
+
+/* Negrito: a fonte só tem o peso Thin; força o peso 700 e reforça o traço */
+.sl-markdown-content strong,
+.sl-markdown-content b {
+  font-weight: 700;
+  color: #ffffff;
+  -webkit-text-stroke: 0.5px currentColor;
+}
+html[data-theme='light'] .sl-markdown-content strong,
+html[data-theme='light'] .sl-markdown-content b {
+  color: #000000;
 }

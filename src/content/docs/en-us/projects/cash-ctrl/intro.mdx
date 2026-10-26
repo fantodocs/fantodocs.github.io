@@ -9,17 +9,70 @@ description: Personal finance in the terminal.
 
 ## What is cash-ctrl
 
-Personal finance in the terminal.
+Cash-Ctrl is a minimalist TUI (Terminal User Interface) application for tracking personal expenses and income, stored as structured JSON files called controls.
 
-## Technology
+Each control represents a financial period (e.g., "June 2026") and holds a starting balance, expenses, and incomes. The app runs fully in the terminal with a clean purple-on-black aesthetic.
 
-| Language | Type |
-|---|---|
-| **C#** | TUI |
+## Technologies
 
-## Links
+| Technology | Type | Version |
+|---|---|---|
+| .NET | Framework | 10 |
+| C# | Language | 12 |
+| Spectre.Console | Library | 0.49.1 |
+| Windows | Platform | 11 |
 
-- [Repository](https://github.com/F4NT0/cash-ctrl)
+## Code repository
+
+<div style="text-align: center;">
+  <a href="https://github.com/F4NT0/cash-ctrl" target="_blank" rel="noopener noreferrer" class="github-repo-btn">
+    <img src="https://opengraph.githubassets.com/1/F4NT0/cash-ctrl" alt="F4NT0/cash-ctrl" class="github-repo-preview" />
+    <div class="github-repo-overlay">
+      <span class="github-icon">📦</span>
+      <span class="github-text">View on GitHub</span>
+    </div>
+  </a>
+</div>
+
+<style is:global>{`
+  .github-repo-btn {
+    display: inline-block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 400px;
+  }
+  .github-repo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 222, 128, 0.3);
+  }
+  .github-repo-preview {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .github-repo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ffffff;
+  }
+  .github-icon {
+    font-size: 1.5rem;
+  }
+  .github-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+`}</style>
 
 :::note[Documentation in progress]
 Detailed documentation for this project will be published soon.

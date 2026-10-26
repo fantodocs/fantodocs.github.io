@@ -212,7 +212,10 @@ export default defineConfig({
                 },
                 {
                   label: 'cash-ctrl',
-                  items: ['projects/cash-ctrl/intro'],
+                  items: [
+                    'projects/cash-ctrl/intro',
+                    'projects/cash-ctrl/install',
+                  ],
                 },
                 {
                   label: 'Neovim',

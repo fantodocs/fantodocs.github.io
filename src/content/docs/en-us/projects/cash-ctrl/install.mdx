@@ -1,0 +1,92 @@
+---
+title: Installation
+description: How to install cash-ctrl
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+## Requirements
+
+Before installing cash-ctrl, make sure your computer has the following programs installed:
+
+- **.NET 10 Runtime** or SDK - required to run .NET applications
+- **Windows 11** - the application was developed specifically for Windows
+
+## Quick installation
+
+Choose your operating system below to install cash-ctrl with a single command:
+
+<Tabs>
+  <TabItem label="Windows">
+
+```powershell
+# Download and run the installer
+Invoke-WebRequest -Uri "https://github.com/F4NT0/cash-ctrl/releases/latest/download/cash-ctrl-installer.exe" -OutFile "$env:TEMP\cash-ctrl-installer.exe"; Start-Process -FilePath "$env:TEMP\cash-ctrl-installer.exe" -Verb RunAs
+```
+
+  </TabItem>
+  <TabItem label="Linux">
+
+```bash
+# cash-ctrl does not support Linux natively
+# You can try running it via WSL 2 if you have .NET installed
+wget https://github.com/F4NT0/cash-ctrl/releases/latest/download/cash-ctrl.exe -O cash-ctrl.exe
+dotnet cash-ctrl.exe
+```
+
+  </TabItem>
+  <TabItem label="macOS">
+
+```bash
+# cash-ctrl does not support macOS
+# The application was developed specifically for Windows
+```
+
+  </TabItem>
+</Tabs>
+
+## Manual installation
+
+### Windows
+
+<Steps>
+1. Download the latest installer from the [releases page](https://github.com/F4NT0/cash-ctrl/releases)
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-1.png" alt="Downloading the installer" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+1. Run the `cash-ctrl-installer.exe` file as Administrator
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-2.png" alt="Running the installer" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+1. Follow the installer instructions
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-3.png" alt="Installer instructions" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+1. cash-ctrl will be installed and available in the Start menu
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-4.png" alt="cash-ctrl in the Start menu" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+</Steps>
+
+### Linux (via WSL 2)
+
+If you need to use cash-ctrl on Linux, you can try running it via WSL 2:
+
+<Steps>
+1. Install .NET Runtime in WSL 2
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-1.png" alt="Installing .NET in WSL 2" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+1. Download the `cash-ctrl.exe` executable from the [releases page](https://github.com/F4NT0/cash-ctrl/releases)
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-2.png" alt="Downloading the executable" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+1. Run with `dotnet cash-ctrl.exe`
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-3.png" alt="Running cash-ctrl" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+</Steps>
+
+:::note[Limited support]
+Support for Linux and macOS is limited. The application was developed specifically for Windows 11 and may not work correctly on other operating systems.
+:::
