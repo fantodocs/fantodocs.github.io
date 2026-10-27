@@ -4,6 +4,8 @@ description: How to install cash-ctrl
 ---
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
 
 ## Requirements
 
@@ -28,20 +30,15 @@ Invoke-WebRequest -Uri "https://github.com/F4NT0/cash-ctrl/releases/latest/downl
   <TabItem label="Linux">
 
 ```bash
-# cash-ctrl does not support Linux natively
-# You can try running it via WSL 2 if you have .NET installed
-wget https://github.com/F4NT0/cash-ctrl/releases/latest/download/cash-ctrl.exe -O cash-ctrl.exe
-dotnet cash-ctrl.exe
+# TBD: cash-ctrl does not support Linux yet
 ```
 
   </TabItem>
   <TabItem label="macOS">
 
 ```bash
-# cash-ctrl does not support macOS
-# The application was developed specifically for Windows
+# TBD: cash-ctrl does not support macOS yet
 ```
-
   </TabItem>
 </Tabs>
 
@@ -54,39 +51,28 @@ dotnet cash-ctrl.exe
 
    <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-1.png" alt="Downloading the installer" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-1. Run the `cash-ctrl-installer.exe` file as Administrator
+2. Run the `cash-ctrl-installer.exe` file and confirm the location where it will be installed.
 
    <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-2.png" alt="Running the installer" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-1. Follow the installer instructions
+3. The installer will show all the steps it is going to perform on your computer.
 
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-3.png" alt="Installer instructions" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-3.png" alt="Installer steps" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-1. cash-ctrl will be installed and available in the Start menu
+4. The installer also checks whether cash-ctrl is already installed on your computer and asks if you want to reinstall it.
 
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-4.png" alt="cash-ctrl in the Start menu" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-4.png" alt="cash-ctrl override" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-</Steps>
+5. After you confirm, it will show the installation progress and steps until it finishes.
 
-### Linux (via WSL 2)
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-5.png" alt="cash-ctrl installation progress" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-If you need to use cash-ctrl on Linux, you can try running it via WSL 2:
+6. To confirm, open a new terminal and run the command `cash-ctrl --version`.
 
-<Steps>
-1. Install .NET Runtime in WSL 2
-
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-1.png" alt="Installing .NET in WSL 2" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
-
-1. Download the `cash-ctrl.exe` executable from the [releases page](https://github.com/F4NT0/cash-ctrl/releases)
-
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-2.png" alt="Downloading the executable" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
-
-1. Run with `dotnet cash-ctrl.exe`
-
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-3.png" alt="Running cash-ctrl" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-6.png" alt="cash-ctrl version" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
 </Steps>
 
-:::note[Limited support]
-Support for Linux and macOS is limited. The application was developed specifically for Windows 11 and may not work correctly on other operating systems.
-:::
+<Aside type="caution" title="Under construction!">
+  Cash-ctrl was initially created for <Badge text="Windows 11" variant="tip" />, and is still being developed for Linux and macOS
+</Aside>

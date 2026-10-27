@@ -1,0 +1,226 @@
+---
+title: Usability
+description: Guide to the cash-ctrl screens
+---
+
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
+
+## Commands
+
+```text
+cash-ctrl             Open the main welcome menu
+cash-ctrl <name>      Open or create a control by name in the current directory
+cash-ctrl .           Browse controls in the current directory
+cash-ctrl --install   Run the TUI installer (add cash-ctrl to PATH)
+cash-ctrl --uninstall Remove cash-ctrl from PATH and disk
+cash-ctrl --update    Download and install the latest version
+cash-ctrl --help      Show this help message
+cash-ctrl --version   Show the software version
+```
+
+```powershell
+cash-ctrl              # opens main menu
+cash-ctrl June-2026    # opens or creates June-2026.json in the current directory
+cash-ctrl .            # browse in the current directory
+```
+
+## Welcome screen
+
+Shows the `CASH-CTRL` figlet logo and a keyboard-navigable menu:
+
+- **Open controls…**: select from recently opened or local controls
+- **Create new control**: wizard to create a new `.json` control file
+
+Navigation: `↑↓` select, `Enter` confirm, `Esc` quit.
+
+![Welcome screen](/projects/cash-ctrl/1-menu-rounded.png)
+
+## Create a new control
+
+<Steps>
+1. Enter the control name. It becomes the filename, e.g. `June-2026.json`.
+2. See the automatic preview of the path where the file will be saved.
+3. Enter the starting balance (in BRL).
+
+   ![Create new control](/projects/cash-ctrl/2-new-control-rounded.png)
+
+4. A **confirmation** screen shows the data you entered (name, file path and starting balance). Review it and choose:
+
+   ![Confirm new control](/projects/cash-ctrl/3-confirm-new-control-rounded.png)
+
+5. After confirming, the new control opens on the main screen. Since nothing was added yet, it is empty:
+
+   ![New empty control](/projects/cash-ctrl/3-new-control-empty-rounded.png)
+</Steps>
+
+<Tabs>
+  <TabItem label="Confirmation">
+
+| Key | Action |
+|---|---|
+| `Enter` | Confirm and create the control |
+| `V` | Preview the JSON that will be written |
+| `Esc` | Cancel without creating anything |
+
+  </TabItem>
+  <TabItem label="Main screen">
+
+| Area | Description |
+|---|---|
+| **Controls** (top left) | Lists the controls found in the same directory. The open one is marked with `>` and highlighted. Focus with `C` |
+| **Expense types** (top center) | Spending by category. Shows `(no expenses yet)` until the first expense is added |
+| **Calendar** (top right) | Calendar of the current month. Days with entries are colored (red = expense, green = income, purple = both) |
+| **Total Amount** | Starting balance plus incomes |
+| **Total Expenses** | Sum of all expenses |
+| **Available value** | Total Amount minus Total Expenses. Green when positive, red when negative |
+| **Clock** | Current time |
+| **Expense / Income list** | Every expense and income entry. Shows `(no entries yet)` until one is added |
+| **Footer bar** | Shortcuts: `C` controls, `B` balance, `I` income, `E` expense, `L` list. Press `?` for all commands |
+
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+  To start, press `E` to add an expense or `I` to add an income.
+</Aside>
+
+## Open a control
+
+<Steps>
+1. Choose **Open controls** on the welcome screen to list your latest controls.
+2. Select one of the controls you already created with `↑` / `↓` and press `Enter`. `Esc` goes back.
+
+   ![Select the control to open](/projects/cash-ctrl/4-open-control-rounded.png)
+
+3. A preview panel shows the control name, its value and the file path, with the options available:
+
+   ![Open control options](/projects/cash-ctrl/4-open-control-options-rounded.png)
+</Steps>
+
+| Key | Action |
+|---|---|
+| `Enter` | Open the control on the main screen |
+| `Delete` / `D` | Delete the control |
+| `Esc` | Go back |
+
+## Add expenses
+
+<Steps>
+1. Press `E` to open the **New Expense** modal.
+
+   ![New expense](/projects/cash-ctrl/5-add-expense-rounded.png)
+
+2. Fill in the fields **Name, Amount, Type and Date**. `Tab` moves to the next field. `Enter` saves and `Esc` cancels.
+3. If the expense is a shopping list, press `+` to add items. Each item has a name, quantity, size (`Kg` / `Un`) and a value. For `Kg` items the amount is calculated automatically from the per-item price:
+
+   ![New expense with items](/projects/cash-ctrl/5-add-item-expense-rounded.png)
+
+4. After saving, the expense shows up in several places of the main screen:
+
+   ![Expense visualization](/projects/cash-ctrl/5-expense-visualization-rounded.png)
+</Steps>
+
+Where the expense shows up:
+
+1. **Expense types**: the type of the expense (`Credit Card`) with the total spent in it (`R$ 100,00`), in the color chosen for that type
+2. **Total Expenses**: the sum of all expenses. **Available value** is reduced by the same amount
+3. **Expense / Income list**: the entry with its date, name, type, amount and origin (`expense`)
+4. **Calendar**: the day of the expense is highlighted in red
+
+## Calculator (`K`)
+
+Floating panel on the top right. Type with the keyboard: digits, `.` or `,`, `+ - * / ^ %`, parentheses (`x` also multiplies).
+
+![Calculator](/projects/cash-ctrl/6-calculator-rounded.png)
+
+- `Enter` calculates; the result can be continued by typing an operator
+- `Del` clears the current line, `Backspace` removes a character
+- Keeps a **history of the current session**; it is cleared when the software is closed
+- `Esc` closes the panel
+
+## Help (`?`)
+
+Floating panel listing every command for the main screen, entry list and calculator. Press any key to close.
+
+![Help](/projects/cash-ctrl/8-help-rounded.png)
+
+## Add income
+
+<Steps>
+1. When you receive some amount, press `I`. The first press focuses the **Total Amount** panel; press `I` again to open the **Income** modal.
+
+   ![Add income](/projects/cash-ctrl/9-income-money-rounded.png)
+
+2. The top shows the current **Total Amount**. Fill in **Amount added, Date and Origin** (`Tab` moves to the next field).
+3. **Origin** is a title that explains where the income comes from (e.g. `New money entry`, `Salary`). `Enter` saves and `Esc` cancels.
+4. After saving, the income updates the main screen:
+
+   ![Main screen after adding an income](/projects/cash-ctrl/9-after-income-rounded.png)
+</Steps>
+
+1. **Total Amount**: the income is added to the balance (`R$ 320,00` + `R$ 100,00` = `R$ 420,00`)
+2. **Expense / Income list**: a new entry with the date, the origin title you typed (`New money entry`), the amount and the origin `income` (in green)
+3. **Available value**: recalculated as Total Amount minus Total Expenses (`R$ 420,00` - `R$ 100,00` = `R$ 320,00`)
+
+<Aside type="note">
+  The day of the income is also highlighted in the **Calendar**: green for an income only, purple when the same day has both an expense and an income (as day `26` in the image).
+</Aside>
+
+## List of expenses and incomes
+
+On the main screen of the control, press `L` to focus the **Expense / Income list**, which shows every money entry and exit of the control. The focused panel gets a highlighted border and the footer bar changes to the list commands.
+
+![Expense / Income list focused](/projects/cash-ctrl/10-list-select-rounded.png)
+
+<Tabs>
+  <TabItem label="Keys">
+
+| Key | Action |
+|---|---|
+| `↑` / `↓` | Scroll through the entries |
+| `Enter` | Open the details of the selected entry (line items of an expense) |
+| `U` | Edit the selected entry |
+| `D` | Delete mode: select entries with `Space` and confirm with `Enter` |
+| `F` | Filter the list (`Tab` changes the column, `Enter` applies) |
+| `L` | Exit the list focus |
+
+  </TabItem>
+  <TabItem label="Columns">
+
+Each row shows **Date, Name, Type, Amount and Origin**, where the origin is `expense` (red) or `income` (green).
+
+  </TabItem>
+</Tabs>
+
+## Edit an entry
+
+<Steps>
+1. With the list focused (`L`), use `↑` / `↓` to select the expense or income you want.
+2. Press `U` to open the **Edit entry** modal with the data of the selected entry.
+
+   ![Edit entry](/projects/cash-ctrl/11-edit-expense-rounded.png)
+
+3. Change the fields **Name, Amount, Type and Date** (`Tab` moves to the next field). `Enter` saves and `Esc` cancels.
+</Steps>
+
+Other actions with the list focused: `D` deletes the entry (delete mode: `Space` marks, `Enter` confirms) and `Enter` shows more details.
+
+<Aside type="note">
+  Changes take effect immediately and persist to the control file.
+</Aside>
+
+## Edit total balance (`B`)
+
+<Steps>
+1. To change the initial balance of the control, press `B`. The first press focuses the **Total Amount** panel.
+2. Press `B` again to open the **balance** modal.
+
+   ![Edit total balance](/projects/cash-ctrl/12-balance-rounded.png)
+
+3. **Current** shows the initial balance (`total-value`) of the current period, without the incomes.
+4. Type the **New value** and press `Enter` to save, or `Esc` to cancel. The change takes effect immediately and is saved in the control file.
+</Steps>
+
+<Aside type="caution" title="Total Amount vs. initial balance">
+  The value shown in **Total Amount** is the **initial balance plus all the incomes** of the control. In the image the initial balance is `R$ 320,00` and there is one income of `R$ 100,00`, so Total Amount is `R$ 420,00`. This is why the modal shows `R$ 320,00` as the current value and not `R$ 420,00`.
+</Aside>

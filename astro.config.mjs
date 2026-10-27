@@ -212,9 +212,11 @@ export default defineConfig({
                 },
                 {
                   label: 'cash-ctrl',
+                  badge: { text: 'update', style: { backgroundColor: '#a855f7', color: 'white' } },
                   items: [
                     'projects/cash-ctrl/intro',
                     'projects/cash-ctrl/install',
+                    'projects/cash-ctrl/usability',
                   ],
                 },
                 {

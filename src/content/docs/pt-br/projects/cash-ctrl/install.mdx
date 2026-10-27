@@ -4,6 +4,8 @@ description: Como instalar o cash-ctrl
 ---
 
 import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
 
 ## Requisitos
 
@@ -28,20 +30,15 @@ Invoke-WebRequest -Uri "https://github.com/F4NT0/cash-ctrl/releases/latest/downl
   <TabItem label="Linux">
 
 ```bash
-# O cash-ctrl não suporta Linux nativamente
-# Você pode tentar executar via WSL 2 se tiver .NET instalado
-wget https://github.com/F4NT0/cash-ctrl/releases/latest/download/cash-ctrl.exe -O cash-ctrl.exe
-dotnet cash-ctrl.exe
+# TBD: O cash-ctrl não suporta Linux ainda
 ```
 
   </TabItem>
   <TabItem label="macOS">
 
 ```bash
-# O cash-ctrl não suporta macOS
-# O aplicativo foi desenvolvido especificamente para Windows
+# TBD: O cash-ctrl não suporta macOS
 ```
-
   </TabItem>
 </Tabs>
 
@@ -54,39 +51,30 @@ dotnet cash-ctrl.exe
 
    <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-1.png" alt="Baixando o instalador" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-1. Execute o arquivo `cash-ctrl-installer.exe` como Administrador
+2. Execute o arquivo `cash-ctrl-installer.exe` e valide a localização que vai ser instalado.
 
    <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-2.png" alt="Executando o instalador" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-1. Siga as instruções do instalador
+3. O instalador vai mostrar todos os passos que ele vai fazer no seu computador.
 
    <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-3.png" alt="Instruções do instalador" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-1. O cash-ctrl será instalado e estará disponível no menu Iniciar
+4. O instalador também verifica se você já tem instalado no seu computador e pergunta se deseja reinstalar.
 
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-4.png" alt="cash-ctrl no menu Iniciar" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-4.png" alt="cash-ctrl override" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-</Steps>
+5. Após confirmação, ele vai mostrar a instalação e passos até concluir.
 
-### Linux (via WSL 2)
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-5.png" alt="cash-ctrl override" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-Se você precisa usar o cash-ctrl no Linux, pode tentar executá-lo via WSL 2:
+6. Para confirmar, abra um novo terminal e use o comando `cash-ctrl --version`.
 
-<Steps>
-1. Instale o .NET Runtime no WSL 2
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-6.png" alt="cash-ctrl override" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-1.png" alt="Instalando o .NET no WSL 2" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
-1. Baixe o executável `cash-ctrl.exe` da [página de releases](https://github.com/F4NT0/cash-ctrl/releases)
-
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-2.png" alt="Baixando o executável" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
-
-1. Execute com `dotnet cash-ctrl.exe`
-
-   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-linux-3.png" alt="Executando o cash-ctrl" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
 
 </Steps>
 
-:::note[Suporte limitado]
-O suporte para Linux e macOS é limitado. O aplicativo foi desenvolvido especificamente para Windows 11 e pode não funcionar corretamente em outros sistemas operacionais.
-:::
+<Aside type="caution" title="Em construção!">
+  Cash-ctrl foi criado inicialmente para <Badge text="Windows 11" variant="tip" />, ainda está sendo desenvolvido para Linux e MacOSX
+</Aside>
