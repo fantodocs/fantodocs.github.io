@@ -1,0 +1,78 @@
+---
+title: Installation
+description: How to install cash-ctrl
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+
+## Requirements
+
+Before installing cash-ctrl, make sure your computer has the following programs installed:
+
+- **.NET 10 Runtime** or SDK - required to run .NET applications
+- **Windows 11** - the application was developed specifically for Windows
+
+## Quick installation
+
+Choose your operating system below to install cash-ctrl with a single command:
+
+<Tabs>
+  <TabItem label="Windows">
+
+```powershell
+# Download and run the installer
+Invoke-WebRequest -Uri "https://github.com/F4NT0/cash-ctrl/releases/latest/download/cash-ctrl-installer.exe" -OutFile "$env:TEMP\cash-ctrl-installer.exe"; Start-Process -FilePath "$env:TEMP\cash-ctrl-installer.exe" -Verb RunAs
+```
+
+  </TabItem>
+  <TabItem label="Linux">
+
+```bash
+# TBD: cash-ctrl does not support Linux yet
+```
+
+  </TabItem>
+  <TabItem label="macOS">
+
+```bash
+# TBD: cash-ctrl does not support macOS yet
+```
+  </TabItem>
+</Tabs>
+
+## Manual installation
+
+### Windows
+
+<Steps>
+1. Download the latest installer from the [releases page](https://github.com/F4NT0/cash-ctrl/releases)
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-1.png" alt="Downloading the installer" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+2. Run the `cash-ctrl-installer.exe` file and confirm the location where it will be installed.
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-2.png" alt="Running the installer" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+3. The installer will show all the steps it is going to perform on your computer.
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-3.png" alt="Installer steps" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+4. The installer also checks whether cash-ctrl is already installed on your computer and asks if you want to reinstall it.
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-4.png" alt="cash-ctrl override" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+5. After you confirm, it will show the installation progress and steps until it finishes.
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-5.png" alt="cash-ctrl installation progress" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+6. To confirm, open a new terminal and run the command `cash-ctrl --version`.
+
+   <div class="step-image-slot"><img src="/projects/cash-ctrl/install-win-6.png" alt="cash-ctrl version" loading="lazy" onerror="this.parentElement.classList.add('empty')" /></div>
+
+</Steps>
+
+<Aside type="caution" title="Under construction!">
+  Cash-ctrl was initially created for <Badge text="Windows 11" variant="tip" />, and is still being developed for Linux and macOS
+</Aside>

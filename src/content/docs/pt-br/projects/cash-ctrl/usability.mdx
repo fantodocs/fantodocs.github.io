@@ -1,0 +1,226 @@
+---
+title: Usabilidade
+description: Guia de uso das telas do cash-ctrl
+---
+
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
+
+## Comandos
+
+```text
+cash-ctrl             Abre o menu principal de boas-vindas
+cash-ctrl <nome>      Abre ou cria um controle pelo nome na pasta atual
+cash-ctrl .           Lista os controles da pasta atual
+cash-ctrl --install   Executa o instalador TUI (adiciona o cash-ctrl ao PATH)
+cash-ctrl --uninstall Remove o cash-ctrl do PATH e do disco
+cash-ctrl --update    Baixa e instala a versão mais recente
+cash-ctrl --help      Mostra a ajuda
+cash-ctrl --version   Mostra a versão do software
+```
+
+```powershell
+cash-ctrl              # abre o menu principal
+cash-ctrl June-2026    # abre ou cria June-2026.json na pasta atual
+cash-ctrl .            # navega pelos controles da pasta atual
+```
+
+## Tela de boas-vindas
+
+Mostra o logo `CASH-CTRL` em figlet e um menu navegável pelo teclado:
+
+- **Open controls…**: seleciona entre os controles recentes ou locais
+- **Create new control**: assistente para criar um novo arquivo `.json`
+
+Navegação: `↑↓` seleciona, `Enter` confirma e `Esc` sai.
+
+![Tela de boas-vindas](/projects/cash-ctrl/1-menu-rounded.png)
+
+## Criar um novo controle
+
+<Steps>
+1. Informe o nome do controle. Ele vira o nome do arquivo, por exemplo `June-2026.json`.
+2. Veja a pré-visualização automática do caminho onde o arquivo será salvo.
+3. Informe o saldo inicial (em BRL).
+
+   ![Criar novo controle](/projects/cash-ctrl/2-new-control-rounded.png)
+
+4. Uma tela de **confirmação** mostra os dados informados (nome, caminho e saldo inicial). Revise e escolha:
+
+   ![Confirmar novo controle](/projects/cash-ctrl/3-confirm-new-control-rounded.png)
+
+5. Após confirmar, o novo controle abre na tela principal. Como nada foi adicionado ainda, ele está vazio:
+
+   ![Novo controle vazio](/projects/cash-ctrl/3-new-control-empty-rounded.png)
+</Steps>
+
+<Tabs>
+  <TabItem label="Confirmação">
+
+| Tecla | Ação |
+|---|---|
+| `Enter` | Confirma e cria o controle |
+| `V` | Mostra o JSON que será gravado |
+| `Esc` | Cancela sem criar nada |
+
+  </TabItem>
+  <TabItem label="Tela principal">
+
+| Área | Descrição |
+|---|---|
+| **Controls** (superior esquerdo) | Lista os controles da mesma pasta. O aberto aparece com `>` e destacado. Foco com `C` |
+| **Expense types** (superior central) | Gastos por categoria. Mostra `(no expenses yet)` até a primeira despesa |
+| **Calendar** (superior direito) | Calendário do mês atual. Dias com lançamentos ficam coloridos (vermelho = despesa, verde = receita, roxo = ambos) |
+| **Total Amount** | Saldo inicial somado às receitas |
+| **Total Expenses** | Soma de todas as despesas |
+| **Available value** | Total Amount menos Total Expenses. Verde quando positivo, vermelho quando negativo |
+| **Clock** | Hora atual |
+| **Expense / Income list** | Todas as despesas e receitas. Mostra `(no entries yet)` até haver uma |
+| **Footer bar** | Atalhos: `C` controles, `B` saldo, `I` receita, `E` despesa, `L` lista. `?` mostra todos os comandos |
+
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+  Para começar, pressione `E` para adicionar uma despesa ou `I` para adicionar uma receita.
+</Aside>
+
+## Abrir um controle
+
+<Steps>
+1. Escolha **Open controls** na tela de boas-vindas para listar seus controles mais recentes.
+2. Selecione um controle já criado com `↑` / `↓` e pressione `Enter`. `Esc` volta.
+
+   ![Selecionar o controle para abrir](/projects/cash-ctrl/4-open-control-rounded.png)
+
+3. Um painel de pré-visualização mostra o nome do controle, o valor e o caminho do arquivo, com as opções disponíveis:
+
+   ![Opções do controle](/projects/cash-ctrl/4-open-control-options-rounded.png)
+</Steps>
+
+| Tecla | Ação |
+|---|---|
+| `Enter` | Abre o controle na tela principal |
+| `Delete` / `D` | Apaga o controle |
+| `Esc` | Volta |
+
+## Adicionar despesas
+
+<Steps>
+1. Pressione `E` para abrir o modal **New Expense**.
+
+   ![Nova despesa](/projects/cash-ctrl/5-add-expense-rounded.png)
+
+2. Preencha os campos **Name, Amount, Type e Date**. `Tab` vai para o próximo campo. `Enter` salva e `Esc` cancela.
+3. Se a despesa for uma lista de compras, pressione `+` para adicionar itens. Cada item tem nome, quantidade, tamanho (`Kg` / `Un`) e valor. Para itens em `Kg`, o total é calculado automaticamente a partir do preço por item:
+
+   ![Nova despesa com itens](/projects/cash-ctrl/5-add-item-expense-rounded.png)
+
+4. Depois de salvar, a despesa aparece em vários pontos da tela principal:
+
+   ![Visualização da despesa](/projects/cash-ctrl/5-expense-visualization-rounded.png)
+</Steps>
+
+Onde a despesa aparece:
+
+1. **Expense types**: o tipo da despesa (`Credit Card`) com o total gasto nele (`R$ 100,00`), na cor escolhida para o tipo
+2. **Total Expenses**: a soma de todas as despesas. O **Available value** diminui no mesmo valor
+3. **Expense / Income list**: a entrada com data, nome, tipo, valor e origem (`expense`)
+4. **Calendar**: o dia da despesa fica destacado em vermelho
+
+## Calculadora (`K`)
+
+Painel flutuante no canto superior direito. Digite pelo teclado: dígitos, `.` ou `,`, `+ - * / ^ %` e parênteses (`x` também multiplica).
+
+![Calculadora](/projects/cash-ctrl/6-calculator-rounded.png)
+
+- `Enter` calcula, e o resultado pode continuar sendo usado ao digitar um operador
+- `Del` limpa a linha atual e `Backspace` remove um caractere
+- Mantém um **histórico da sessão atual**, que é limpo ao fechar o software
+- `Esc` fecha o painel
+
+## Ajuda (`?`)
+
+Painel flutuante que lista todos os comandos da tela principal, da lista de entradas e da calculadora. Pressione qualquer tecla para fechar.
+
+![Ajuda](/projects/cash-ctrl/8-help-rounded.png)
+
+## Adicionar receita
+
+<Steps>
+1. Quando receber algum valor, pressione `I`. O primeiro toque foca o painel **Total Amount**. Pressione `I` de novo para abrir o modal **Income**.
+
+   ![Adicionar receita](/projects/cash-ctrl/9-income-money-rounded.png)
+
+2. O topo mostra o **Total Amount** atual. Preencha **Amount added, Date e Origin** (`Tab` vai para o próximo campo).
+3. **Origin** é um título que explica de onde vem a receita (por exemplo `New money entry` ou `Salary`). `Enter` salva e `Esc` cancela.
+4. Depois de salvar, a receita atualiza a tela principal:
+
+   ![Tela principal após adicionar uma receita](/projects/cash-ctrl/9-after-income-rounded.png)
+</Steps>
+
+1. **Total Amount**: a receita é somada ao saldo (`R$ 320,00` + `R$ 100,00` = `R$ 420,00`)
+2. **Expense / Income list**: uma nova entrada com a data, o título de origem digitado (`New money entry`), o valor e a origem `income` (em verde)
+3. **Available value**: recalculado como Total Amount menos Total Expenses (`R$ 420,00` - `R$ 100,00` = `R$ 320,00`)
+
+<Aside type="note">
+  O dia da receita também fica destacado no **Calendar**: verde para apenas receita e roxo quando o mesmo dia tem despesa e receita (como o dia `26` na imagem).
+</Aside>
+
+## Lista de despesas e receitas
+
+Na tela principal do controle, pressione `L` para focar a **Expense / Income list**, que mostra todas as entradas e saídas de dinheiro do controle. O painel em foco ganha uma borda destacada e a barra do rodapé muda para os comandos da lista.
+
+![Lista de despesas e receitas em foco](/projects/cash-ctrl/10-list-select-rounded.png)
+
+<Tabs>
+  <TabItem label="Teclas">
+
+| Tecla | Ação |
+|---|---|
+| `↑` / `↓` | Rola pelas entradas |
+| `Enter` | Abre os detalhes da entrada selecionada (itens de uma despesa) |
+| `U` | Edita a entrada selecionada |
+| `D` | Modo de exclusão: marque entradas com `Space` e confirme com `Enter` |
+| `F` | Filtra a lista (`Tab` troca a coluna, `Enter` aplica) |
+| `L` | Sai do foco da lista |
+
+  </TabItem>
+  <TabItem label="Colunas">
+
+Cada linha mostra **Date, Name, Type, Amount e Origin**, onde a origem é `expense` (vermelho) ou `income` (verde).
+
+  </TabItem>
+</Tabs>
+
+## Editar uma entrada
+
+<Steps>
+1. Com a lista em foco (`L`), use `↑` / `↓` para selecionar a despesa ou receita desejada.
+2. Pressione `U` para abrir o modal **Edit entry** com os dados da entrada selecionada.
+
+   ![Editar entrada](/projects/cash-ctrl/11-edit-expense-rounded.png)
+
+3. Altere os campos **Name, Amount, Type e Date** (`Tab` vai para o próximo campo). `Enter` salva e `Esc` cancela.
+</Steps>
+
+Outras ações com a lista em foco: `D` apaga a entrada (modo de exclusão: `Space` marca e `Enter` confirma) e `Enter` mostra mais detalhes.
+
+<Aside type="note">
+  As alterações valem imediatamente e são gravadas no arquivo do controle.
+</Aside>
+
+## Editar o saldo total (`B`)
+
+<Steps>
+1. Para mudar o saldo inicial do controle, pressione `B`. O primeiro toque foca o painel **Total Amount**.
+2. Pressione `B` de novo para abrir o modal de **balance**.
+
+   ![Editar saldo total](/projects/cash-ctrl/12-balance-rounded.png)
+
+3. **Current** mostra o saldo inicial (`total-value`) do período atual, sem as receitas.
+4. Digite o **New value** e pressione `Enter` para salvar, ou `Esc` para cancelar. A mudança vale na hora e é gravada no arquivo do controle.
+</Steps>
+
+<Aside type="caution" title="Total Amount x saldo inicial">
+  O valor exibido em **Total Amount** é o **saldo inicial somado a todas as receitas** do controle. Na imagem, o saldo inicial é `R$ 320,00` e há uma receita de `R$ 100,00`, então o Total Amount é `R$ 420,00`. Por isso o modal mostra `R$ 320,00` como valor atual, e não `R$ 420,00`.
+</Aside>

@@ -3,9 +3,7 @@ title: Meu Perfil
 description: PT-BR versão do meu perfil
 ---
 
-import { LinkCard, CardGrid } from '@astrojs/starlight/components';
-import { Badge } from '@astrojs/starlight/components';
-import ImageCard from '../../../components/ImageCard.astro';
+
 
 <table align="center"><tr><td align="center" width="9999">
     <img src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/me2.png`} alt="Gabriel Stundner" width="300" /> 
@@ -31,98 +29,77 @@ import ImageCard from '../../../components/ImageCard.astro';
   </a>
 </div>
 
-### Formação e Profissão
+## Formação e Profissão
 
-- Formado como Bacharel em Engenharia de Software na [PUCRS](https://portal.pucrs.br/en/ensino/cursos/graduacao/engenharia-de-software/) em 2023.
+- Formado como Bacharel em Engenharia de Software na [PUCRS](https://portal.pucrs.br/en/ensino/cursos/graduacao/engenharia-de-software/).
 - Engenheiro de sistemas de alto impacto e escaláveis na área de gerenciamento.
 - Atualmente trabalho como Engenheiro de Software na [Dell Technologies](https://www.dell.com/en-us/lp/dt/who-we-are?msockid=13a6ae50813463391d39bb2080e2622b)
 
-### Objetivos
+## Objetivos
 
-- <Badge text="Curto prazo" variant="caution" />: Engenheiro de Software Pleno em .NET.
-- <Badge text="Longo prazo" variant="success" />: Arquiteto de Software.
+<div class="goals-container">
+  <div class="goal-card">
+    <div class="goal-icon">🎯</div>
+    <div class="goal-label">Curto prazo</div>
+    <div class="goal-text">Engenheiro de Software Senior</div>
+  </div>
+  <div class="goal-card">
+    <div class="goal-icon">🚀</div>
+    <div class="goal-label">Longo prazo</div>
+    <div class="goal-text">Arquiteto de Software</div>
+  </div>
+</div>
 
-### Projetos desenvolvidos para empresas
+<style is:global>{`
+  .goals-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    align-items: start;
+    margin-top: 1rem;
+  }
+  .goal-card {
+    padding: 0.75rem;
+    text-align: center;
+  }
+  .goal-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .goal-label {
+    display: inline-block;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #4ade80;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid currentColor;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(74, 222, 128, 0.55);
+  }
+  .goal-text {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #ffffff;
+    opacity: 0.85;
+  }
+  :root[data-theme='light'] .goal-label {
+    color: #16a34a;
+    text-shadow: none;
+  }
+  :root[data-theme='light'] .goal-text {
+    color: #07090a;
+  }
+`}</style>
 
-<CardGrid>
-  <ImageCard
-    href="https://www.instagram.com/join.fut/"
-    image="/projects/joinfut.jpg"
-    title="Joinfut"
-    subtitle="Aplicativo em Flutter para auxiliar novos jogadores de futebol."
-    language="Flutter"
-    languageIcon="flutter"
-    badges={[{ text: 'App', color: '#3b82f6'}]}
-  />
-  <ImageCard
-    href="https://github.com/lfbreciclagemeletronica/Controle-Materiais"
-    image="/projects/controle-materiais.png"
-    title="ControleMateriais"
-    subtitle="Gerenciamento de materiais eletrônicos para descarte."
-    language="C#"
-    languageIcon="csharp"
-    badges={[{ text: 'Desktop', color: '#9A00FF'}]}
-  />
-  <ImageCard
-    href="https://sunnystur.com"
-    image="/projects/sunnytur.png"
-    fit="contain"
-    title="Sunny's Tur"
-    subtitle="Página de portfolio de motorista executivo."
-    language="Astro"
-    languageIcon="astro"
-    badges={[{ text: 'Web', color: '#f59e0b'}]}
-  />
-</CardGrid>
+## Sobre mim
+
+Sou apaixonado por tecnologia e pelo desenvolvimento de soluções que resolvem problemas reais. Como Engenheiro de Software focado em backend, trabalho na criação de sistemas escaláveis, seguros e de alta performance, utilizando arquiteturas modernas baseadas em microserviços.
+
+Ao longo da minha trajetória, desenvolvi e participei de projetos de gerenciamento corporativo, automação de processos e aplicações voltadas para segurança e integração de sistemas. Meu stack principal inclui .NET, Go e Spring Boot, trabalhando com linguagens como C#, Java, Go e Python para construir APIs, serviços distribuídos e soluções empresariais robustas.
+
+Tenho grande interesse por arquitetura de software, computação em nuvem, DevOps e engenharia de plataformas, sempre buscando aplicar boas práticas de desenvolvimento para entregar produtos com qualidade, manutenibilidade e excelente experiência para os usuários e equipes técnicas.
 
 
-### Projetos pessoais
-
-<CardGrid>
-  <ImageCard
-    href="https://github.com/F4NT0/cash-ctrl"
-    image="/projects/cash-ctrl.png"
-    title="cash-ctrl"
-    subtitle="Financeiro pelo terminal."
-    language="C#"
-    languageIcon="csharp"
-    badges={[{ text: 'TUI', color: '#86efac' }]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/nvim"
-    image="/projects/neovim.png"
-    title="Neovim"
-    language="lua"
-    languageIcon="lua"
-    subtitle="Minha configuração do Neovim."
-    badges={[{ text: 'TUI', color: '#86efac'}]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/clidocs"
-    image="/projects/clidocs.png"
-    title="clidocs"
-    subtitle="Documentação pelo Terminal."
-    language="go"
-    languageIcon="go"
-    badges={[{ text: 'TUI', color: '#86efac'}]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/JsonFormatter"
-    image="/projects/jsonformatter.png"
-    title="JsonFormatter"
-    subtitle="Formatador de JSON."
-    language="C#"
-    languageIcon="csharp"
-    badges={[{ text: 'Desktop', color: '#9A00FF'}]}
-  />
-  <ImageCard
-    href="https://github.com/F4NT0/daily-dev-tui"
-    image="/projects/daily-dev-tui.png"
-    title="daily-dev-tui"
-    subtitle="TUI para pesquisar na API do Daily.dev."
-    language="go"
-    languageIcon="go"
-    badges={[{ text: 'TUI', color: '#86efac'}]}
-  />
-</CardGrid>
 
