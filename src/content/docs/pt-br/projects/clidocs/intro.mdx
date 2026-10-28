@@ -1,7 +1,9 @@
 ---
-title: Sobre o CLIDOCS
+title: clidocs
 description: Gerenciador de snippets para o terminal feito em Go
 ---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
 
 <div class="ascii-title" style="--cols: 52">
   <svg class="ascii-svg" viewBox="0 0 520 120" role="img" aria-label="clidocs"><path d="M10 0h60v20h-60zM80 0h20v20h-20zM160 0h20v20h-20zM190 0h60v20h-60zM280 0h60v20h-60zM370 0h60v20h-60zM440 0h70v20h-70zM0 20h20v20h-20zM80 20h20v20h-20zM160 20h20v20h-20zM190 20h20v20h-20zM240 20h20v20h-20zM270 20h20v20h-20zM330 20h20v20h-20zM360 20h20v20h-20zM440 20h20v20h-20zM0 40h20v20h-20zM80 40h20v20h-20zM160 40h20v20h-20zM190 40h20v20h-20zM240 40h20v20h-20zM270 40h20v20h-20zM330 40h20v20h-20zM360 40h20v20h-20zM440 40h70v20h-70zM0 60h20v20h-20zM80 60h20v20h-20zM160 60h20v20h-20zM190 60h20v20h-20zM240 60h20v20h-20zM270 60h20v20h-20zM330 60h20v20h-20zM360 60h20v20h-20zM490 60h20v20h-20zM10 80h60v20h-60zM80 80h70v20h-70zM160 80h20v20h-20zM190 80h60v20h-60zM280 80h60v20h-60zM370 80h60v20h-60zM440 80h70v20h-70z" fill="currentColor" /><path d="M77 20 L77 8 L70 8M73 20 L73 12 L70 12M107 20 L107 8 L100 8M103 20 L103 12 L100 12M187 20 L187 8 L180 8M183 20 L183 12 L180 12M257 20 L257 8 L250 8M253 20 L253 12 L250 12M347 20 L347 8 L340 8M343 20 L343 12 L340 12M437 20 L437 8 L430 8M433 20 L433 12 L430 12M517 20 L517 8 L510 8M513 20 L513 12 L510 12M23 40 L23 28 L30 28M27 40 L27 32 L30 32M30 28 L40 28M30 32 L40 32M40 28 L50 28M40 32 L50 32M50 28 L60 28M50 32 L60 32M60 28 L70 28M60 32 L70 32M77 20 L77 32 L70 32M73 20 L73 28 L70 28M103 20 L103 40M107 20 L107 40M183 20 L183 40M187 20 L187 40M213 40 L213 28 L220 28M217 40 L217 32 L220 32M220 28 L230 28M220 32 L230 32M230 28 L240 28M230 32 L240 32M267 40 L267 28 L260 28M263 40 L263 32 L260 32M293 40 L293 28 L300 28M297 40 L297 32 L300 32M300 28 L310 28M300 32 L310 32M310 28 L320 28M310 32 L320 32M320 28 L330 28M320 32 L330 32M357 40 L357 28 L350 28M353 40 L353 32 L350 32M383 40 L383 28 L390 28M387 40 L387 32 L390 32M390 28 L400 28M390 32 L400 32M400 28 L410 28M400 32 L410 32M410 28 L420 28M410 32 L420 32M420 28 L430 28M420 32 L430 32M437 20 L437 32 L430 32M433 20 L433 28 L430 28M463 40 L463 28 L470 28M467 40 L467 32 L470 32M470 28 L480 28M470 32 L480 32M480 28 L490 28M480 32 L490 32M490 28 L500 28M490 32 L500 32M500 28 L510 28M500 32 L510 32M517 20 L517 32 L510 32M513 20 L513 28 L510 28M23 40 L23 60M27 40 L27 60M103 40 L103 60M107 40 L107 60M183 40 L183 60M187 40 L187 60M213 40 L213 60M217 40 L217 60M263 40 L263 60M267 40 L267 60M293 40 L293 60M297 40 L297 60M353 40 L353 60M357 40 L357 60M383 40 L383 60M387 40 L387 60M517 60 L517 48 L510 48M513 60 L513 52 L510 52M23 60 L23 80M27 60 L27 80M103 60 L103 80M107 60 L107 80M183 60 L183 80M187 60 L187 80M213 60 L213 80M217 60 L217 80M263 60 L263 80M267 60 L267 80M293 60 L293 80M297 60 L297 80M353 60 L353 80M357 60 L357 80M383 60 L383 80M387 60 L387 80M443 60 L443 72 L450 72M447 60 L447 68 L450 68M450 68 L460 68M450 72 L460 72M460 68 L470 68M460 72 L470 72M470 68 L480 68M470 72 L480 72M480 68 L490 68M480 72 L490 72M513 60 L513 80M517 60 L517 80M3 80 L3 92 L10 92M7 80 L7 88 L10 88M77 100 L77 88 L70 88M73 100 L73 92 L70 92M157 100 L157 88 L150 88M153 100 L153 92 L150 92M183 80 L183 100M187 80 L187 100M253 100 L253 88 L260 88M257 100 L257 92 L260 92M267 80 L267 92 L260 92M263 80 L263 88 L260 88M273 80 L273 92 L280 92M277 80 L277 88 L280 88M343 100 L343 88 L350 88M347 100 L347 92 L350 92M357 80 L357 92 L350 92M353 80 L353 88 L350 88M363 80 L363 92 L370 92M367 80 L367 88 L370 88M437 100 L437 88 L430 88M433 100 L433 92 L430 92M513 80 L513 100M517 80 L517 100M13 100 L13 112 L20 112M17 100 L17 108 L20 108M20 108 L30 108M20 112 L30 112M30 108 L40 108M30 112 L40 112M40 108 L50 108M40 112 L50 112M50 108 L60 108M50 112 L60 112M60 108 L70 108M60 112 L70 112M77 100 L77 112 L70 112M73 100 L73 108 L70 108M83 100 L83 112 L90 112M87 100 L87 108 L90 108M90 108 L100 108M90 112 L100 112M100 108 L110 108M100 112 L110 112M110 108 L120 108M110 112 L120 112M120 108 L130 108M120 112 L130 112M130 108 L140 108M130 112 L140 112M140 108 L150 108M140 112 L150 112M157 100 L157 112 L150 112M153 100 L153 108 L150 108M163 100 L163 112 L170 112M167 100 L167 108 L170 108M170 108 L180 108M170 112 L180 112M187 100 L187 112 L180 112M183 100 L183 108 L180 108M193 100 L193 112 L200 112M197 100 L197 108 L200 108M200 108 L210 108M200 112 L210 112M210 108 L220 108M210 112 L220 112M220 108 L230 108M220 112 L230 112M230 108 L240 108M230 112 L240 112M240 108 L250 108M240 112 L250 112M257 100 L257 112 L250 112M253 100 L253 108 L250 108M283 100 L283 112 L290 112M287 100 L287 108 L290 108M290 108 L300 108M290 112 L300 112M300 108 L310 108M300 112 L310 112M310 108 L320 108M310 112 L320 112M320 108 L330 108M320 112 L330 112M330 108 L340 108M330 112 L340 112M347 100 L347 112 L340 112M343 100 L343 108 L340 108M373 100 L373 112 L380 112M377 100 L377 108 L380 108M380 108 L390 108M380 112 L390 112M390 108 L400 108M390 112 L400 112M400 108 L410 108M400 112 L410 112M410 108 L420 108M410 112 L420 112M420 108 L430 108M420 112 L430 112M437 100 L437 112 L430 112M433 100 L433 108 L430 108M443 100 L443 112 L450 112M447 100 L447 108 L450 108M450 108 L460 108M450 112 L460 112M460 108 L470 108M460 112 L470 112M470 108 L480 108M470 112 L480 112M480 108 L490 108M480 112 L490 112M490 108 L500 108M490 112 L500 112M500 108 L510 108M500 112 L510 112M517 100 L517 112 L510 112M513 100 L513 108 L510 108" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="butt" stroke-linejoin="miter" /></svg>
@@ -9,25 +11,72 @@ description: Gerenciador de snippets para o terminal feito em Go
 
 ## O que é o clidocs
 
-O **clidocs** é um gerenciador de snippets nativo do terminal, feito em **Go** com o framework Bubble Tea. Ele organiza trechos de código, anotações e materiais de referência sem você precisar sair da linha de comando.
+O **clidocs** é um gerenciador de arquivos texto pelo terminal. você pode abrir arquivos de diretórios pelo terminal e poder lê-los sem precisar abrir o arquivo em outros editores de texto. CLIDOCS auxilia na _leitura_, _escrita_ e _organização_ de arquivos de textos diversos, tendo uma excelente visibilidade dependendo do tipo de arquivo.
 
-A interface tem três painéis controlados 100% pelo teclado:
-
-- **Folders:** categorias e subpastas dos seus snippets.
-- **Snippets:** os arquivos da pasta selecionada.
-- **Preview:** conteúdo com destaque de sintaxe (tema GitHub Dark).
+Esse software foi criado no intuito de organizar arquivos para Desenvolvedores e Engenheiros, onde facilita ter um único software no terminal para auxiliar na visualização de multiplos arquivos ao mesmo tempo.
 
 ## Principais recursos
 
-- Criar, renomear, mover e apagar pastas e arquivos.
-- Busca em tempo real em pastas, arquivos e dentro do preview.
-- Abrir arquivos no Neovim ou VS Code.
-- Favoritar pastas e importar arquivos de qualquer lugar.
-- Sincronizar os snippets com um repositório do GitHub.
-- Console interno (`:`) com comandos como `time`, `whoami` e `nvim`.
+1. Criar, renomear, mover e apagar pastas e arquivos.
+2. Busca em tempo real em pastas, arquivos e dentro do preview.
+3. Abrir arquivos no Neovim ou VS Code.
+4. Favoritar pastas e importar arquivos de qualquer lugar.
+5. Sincronizar os snippets com um repositório do GitHub.
+6. Console interno (`:`) com comandos como `time`, `whoami` e `nvim`.
 
-## Repositório
+## Tecnologias
 
-[github.com/F4NT0/clidocs](https://github.com/F4NT0/clidocs)
+| Tecnologia | Tipo | Versão |
+|---|---|---|
+| Go | Linguagem | 1.25.8 |
+| Windows | Plataforma | 11 |
+| PowerShell | Shell | 5.1+ |
+| Neovim | Editor | nvim no PATH |
 
-Próximo passo: veja como [instalar o clidocs](/pt-br/projects/clidocs/install/).
+### Dependências
+
+| Pacote | Módulo | Versão | Função |
+|---|---|---|---|
+| Bubble Tea | `charmbracelet/bubbletea` | v1.3.10 | Framework TUI (arquitetura Elm) |
+| Bubbles | `charmbracelet/bubbles` | v1.0.0 | Componentes de entrada de texto |
+| Lip Gloss | `charmbracelet/lipgloss` | v1.1.1 | Layout e estilização |
+| Glamour | `charm.land/glamour/v2` | v2.0.1 | Renderização de Markdown |
+| Chroma | `alecthomas/chroma/v2` | v2.27.0 | Syntax highlighting |
+| clipboard | `atotto/clipboard` | v0.1.4 | Copiar para a área de transferência |
+
+## Repositório oficial
+
+<div style="text-align: center;">
+  <a href="https://github.com/F4NT0/clidocs" target="_blank" rel="noopener noreferrer" class="github-repo-btn" aria-label="Ver no GitHub">
+    <img src="/projects/clidocs/clidocs-banner.png" alt="F4NT0/clidocs" class="github-repo-preview" />
+  </a>
+</div>
+
+<style is:global>{`
+  .github-repo-btn {
+    display: inline-block;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 400px;
+  }
+  .github-repo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 222, 128, 0.3);
+  }
+  .github-repo-preview {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 !important;
+  }
+`}</style>
+
+
+## Documentação
+
+<CardGrid>
+  <LinkCard title="Instalação" description="Como instalar o clidocs" href="/pt-br/projects/clidocs/install/" />
+  <LinkCard title="Usabilidade" description="Como usar o clidocs" href="/pt-br/projects/clidocs/usage/" />
+</CardGrid>

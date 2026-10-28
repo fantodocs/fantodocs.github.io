@@ -229,10 +229,15 @@ export default defineConfig({
                 },
                 {
                   label: 'daily-dev-tui',
-                  items: ['projects/daily-dev-tui/intro'],
+                  items: [
+                    'projects/daily-dev-tui/intro',
+                    'projects/daily-dev-tui/install',
+                    'projects/daily-dev-tui/usage',
+                  ],
                 },
                 {
                   label: 'clidocs',
+                  badge: { text: 'update', style: { backgroundColor: '#a855f7', color: 'white' } },
                   items: [
                     'projects/clidocs/intro',
                     'projects/clidocs/install',
