@@ -1,0 +1,274 @@
+---
+title: Usabilidade
+description: Guia completo de uso, atalhos, temas e configurações do daily-dev-tui
+---
+
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
+
+## Iniciando o programa
+
+Depois de [instalar o daily-dev-tui](/pt-br/projects/daily-dev-tui/install/), abra um terminal e execute:
+
+```bash
+daily-dev
+```
+
+| Comando | Descrição |
+|---|---|
+| `daily-dev` | Inicia a TUI |
+| `daily-dev --help` | Documentação interativa e colorida (login, uso e cada requisição da API) |
+| `daily-dev --version` | Mostra a versão |
+| `daily-dev --uninstall` | Remove o comando e os arquivos instalados |
+
+## 1. Escolher como entrar
+
+A tela inicial permite escolher entre os métodos de login. Uma terceira opção, **Auto Sign In**, aparece quando já existe um token salvo no computador.
+
+![Seletor de método de login](/projects/daily-dev/login-selector.png)
+
+Use `↑`/`↓` ou `1`/`2`/`3` para selecionar, `Enter` para confirmar, `Esc` para voltar e `Ctrl+C` para sair.
+
+<Tabs>
+  <TabItem label="Token (Bearer)">
+
+<Steps>
+1. Entre em [https://app.daily.dev](https://app.daily.dev).
+2. Abra as configurações da conta e encontre a seção de API / Developers.
+3. Crie um token e **copie na hora** (o acesso à API pode exigir o Daily.dev Plus).
+4. Cole o token na TUI. Para pular a tela de login, defina a variável `DAILY_DEV_TOKEN`.
+</Steps>
+
+<Aside type="caution">
+Mantenha o token em segredo e revogue-o se ele vazar.
+</Aside>
+
+  </TabItem>
+  <TabItem label="Auto Sign In">
+
+Depois que você confirma um token Bearer, a TUI o salva em um arquivo `token.conf` na mesma pasta do programa (`%LOCALAPPDATA%\Programs\daily-dev` no Windows e `~/.local/bin` no Linux e macOS). O arquivo tem este formato:
+
+```conf
+token = <seu token>
+```
+
+<Steps>
+1. Na próxima vez que iniciar o programa, a tela de login mostra **Auto Sign In (Token already saved locally)**.
+2. Escolha essa opção (ou pressione `3`) para entrar sem digitar o token de novo.
+3. Para trocar o token, entre de novo com **Bearer token** (o arquivo é sobrescrito).
+4. Para esquecer o token, destaque a opção Auto Sign In e pressione `d`, ou apague o arquivo.
+</Steps>
+
+<Aside type="danger" title="Segurança">
+O `token.conf` guarda o seu token em texto puro (com permissão só para o dono no Linux e macOS). Nunca compartilhe, versione ou anexe esse arquivo em issues. Se ele vazar, revogue o token em [https://app.daily.dev/settings/api](https://app.daily.dev/settings/api).
+</Aside>
+
+  </TabItem>
+  <TabItem label="OAuth">
+
+Usa o [fluxo OAuth do daily.dev](https://docs.daily.dev/oauth-apps/) (código de autorização com PKCE). Os apps OAuth estão em beta.
+
+<Steps>
+1. No daily.dev abra **Settings > API > OAuth apps** e clique em **Create app**.
+2. Adicione `http://127.0.0.1:8765/callback` como redirect URI (precisa ser exatamente igual) e copie o **Client ID** e o **Client secret** (o secret aparece só uma vez).
+3. Na TUI escolha **OAuth** e informe o client ID e o secret (ou defina `DAILY_DEV_CLIENT_ID` e `DAILY_DEV_CLIENT_SECRET`).
+4. O navegador abre na tela de consentimento do daily.dev. Clique em **Allow** e volte ao terminal. Se o navegador não abrir, copie a URL mostrada na TUI.
+</Steps>
+
+![Login com OAuth](/projects/daily-dev/oauth.png)
+
+<Aside type="note">
+A TUI pede os escopos `openid profile offline_access read write`, guarda os tokens só na memória e renova o token de acesso sozinha. Se você negar `write`, favoritar falha com `403 insufficient_scope`. A porta `8765` em `127.0.0.1` precisa estar livre e a tentativa expira em 3 minutos. Nada é salvo em disco, então você entra de novo a cada início.
+</Aside>
+
+  </TabItem>
+</Tabs>
+
+## 2. Escolher uma requisição
+
+Escolha uma requisição no menu da esquerda: Feeds, Posts, Search, Bookmarks, Custom Feeds, Feed Filters, Notifications, Profile, Tags e Recommend. Requisições com parâmetros abrem um formulário, e os campos obrigatórios são marcados com `*`.
+
+![Formulário de parâmetros](/projects/daily-dev/form.png)
+
+<Steps>
+1. Use `↑`/`↓` no painel de opções para selecionar a requisição.
+2. Pressione `Enter`. Se ela tiver parâmetros, o formulário abre.
+3. Troque de campo com `Tab` ou `↑`/`↓` e preencha os valores.
+4. Pressione `Enter` para executar ou `Esc` para cancelar. Dentro do formulário use `Ctrl+H` para a ajuda, porque `h` é digitado como texto.
+</Steps>
+
+## 3. Barra superior: conta, cota e notificações
+
+Depois de entrar (por token ou OAuth), uma barra acima dos painéis mostra, centralizados: o **nome do usuário**, as **Requests left** (requisições restantes) na janela atual, o **Limit** por minuto e o **Resets in** (contagem regressiva até o reset da cota). Os valores vêm dos cabeçalhos `x-ratelimit-*` da API e atualizam a cada requisição.
+
+`Requests left` fica laranja quando restam 25% ou menos e vermelho em zero.
+
+As notificações aparecem no canto superior direito por alguns segundos: **verde** para ações bem-sucedidas (favoritou, abriu, requisição ok) e **vermelho** para falhas (requisição falhou, não abriu o link, campo obrigatório faltando).
+
+![Barra superior com usuário, cota e notificação](/projects/daily-dev/top-bar.png)
+
+## 4. Ler e agir sobre os resultados
+
+Os resultados aparecem como cartões. Depois de uma busca ou feed, o foco vai para os resultados e um post fica selecionado. Mova-se entre os posts com `↑`/`↓` e use:
+
+| Tecla | Ação |
+|---|---|
+| `Enter` | Abre o post no daily.dev |
+| `o` | Abre o link original do artigo |
+| `b` | Favorita o post (a borda fica laranja, e dupla enquanto selecionado) |
+| `c` | Abre um painel com os comentários |
+| `n` | Carrega a próxima página de uma lista paginada |
+
+![Resultados com post selecionado e favoritado](/projects/daily-dev/results.png)
+
+### Comentários
+
+O painel de comentários mostra os mais novos primeiro e é somente leitura (a API pública não permite criar comentários). Use `↑`/`↓` ou `PgUp`/`PgDn` para rolar e `Esc`, `q`, `c` ou `Enter` para fechar.
+
+![Painel de comentários](/projects/daily-dev/comments.png)
+
+<Aside type="tip">
+Se o navegador não puder ser aberto, um painel flutuante mostra o post e o link para você abrir manualmente.
+</Aside>
+
+<Aside type="caution">
+`401` significa token inválido ou revogado. `429` significa que você atingiu o limite de requisições.
+</Aside>
+
+## Atalhos de teclado
+
+Pressione `h` no menu a qualquer momento para ver os atalhos em um painel flutuante (dentro de um formulário use `Ctrl+H`).
+
+![Painel de ajuda](/projects/daily-dev/help-panel.png)
+
+<Tabs>
+  <TabItem label="Painel de opções">
+
+| Tecla | Ação |
+|---|---|
+| `↑`/`↓` | Seleciona a opção |
+| `Enter` | Executa a requisição (abre o formulário se tiver parâmetros) |
+| `Tab` | Troca de painel |
+| `t` | Escolhe um tema |
+| `h` | Mostra o painel de ajuda |
+| `q` | Sai |
+
+  </TabItem>
+  <TabItem label="Painel de posts">
+
+| Tecla | Ação |
+|---|---|
+| `↑`/`↓` ou `j`/`k` | Post anterior / próximo |
+| `Enter` | Abre o post no daily.dev |
+| `o` | Abre o link original |
+| `b` | Favorita o post |
+| `c` | Lê os comentários |
+| `n` | Próxima página |
+| `Tab` | Troca de painel |
+| `t` | Escolhe um tema |
+| `h` | Mostra o painel de ajuda |
+| `q` | Sai |
+
+  </TabItem>
+  <TabItem label="Formulários e painéis">
+
+| Onde | Teclas |
+|---|---|
+| Formulário de parâmetros | `Tab`/`↑`/`↓` troca de campo, `Enter` executa, `Esc` cancela, `Ctrl+H` ajuda |
+| Painel de comentários | `↑`/`↓`, `PgUp`/`PgDn` rolam, `Esc`/`q`/`c`/`Enter` fecham |
+| Painel de ajuda | `Tab` ou `←`/`→` troca de aba, `Esc`/`q`/`h` fecham |
+| Painel de temas | `↑`/`↓` pré-visualiza, `Enter` aplica, `Esc` cancela |
+| Tela de login | `↑`/`↓` ou `1`/`2`/`3` seleciona, `Enter` confirma, `d` apaga o token salvo (em Auto Sign In), `Esc` volta, `Ctrl+C` sai |
+
+  </TabItem>
+</Tabs>
+
+## Temas
+
+Todas as cores da TUI são variáveis em arquivos `.conf` dentro da pasta `themes/`, ao lado do programa (`%LOCALAPPDATA%\Programs\daily-dev\themes` no Windows e `~/.local/bin/themes` no Linux e macOS). Em um clone do repositório, é usada a pasta `daily-dev-tui/themes/`. Os temas também estão embutidos no binário, então a TUI funciona mesmo sem os arquivos.
+
+| Tema | Arquivo |
+|---|---|
+| Default | `default.conf` |
+| Catppuccin Mocha | `catppuccin-mocha.conf` |
+| Nord | `nord.conf` |
+| Terminal (verde clássico sobre preto, usa a paleta ANSI do terminal) | `terminal.conf` |
+| Darcula | `darcula.conf` |
+
+### Escolher um tema
+
+<Steps>
+1. Pressione `t` no menu para abrir a lista de temas.
+2. Use `↑`/`↓` para pré-visualizar cada tema ao vivo.
+3. Pressione `Enter` para aplicar ou `Esc` para cancelar. A escolha é lembrada (guardada em `themes/.theme`).
+</Steps>
+
+![Seletor de temas](/projects/daily-dev/theme-picker.png)
+
+Ou inicie com `DAILY_DEV_THEME=nord` (nome do tema ou caminho completo de um `.conf`). A variável tem prioridade sobre a escolha lembrada.
+
+<Tabs>
+  <TabItem label="Default">
+
+![Default](/projects/daily-dev/theme-default.png)
+
+  </TabItem>
+  <TabItem label="Catppuccin Mocha">
+
+![Catppuccin Mocha](/projects/daily-dev/theme-mocha.png)
+
+  </TabItem>
+  <TabItem label="Darcula">
+
+![Darcula](/projects/daily-dev/theme-darcula.png)
+
+  </TabItem>
+  <TabItem label="Nord">
+
+![Nord](/projects/daily-dev/theme-nord.png)
+
+  </TabItem>
+  <TabItem label="Terminal">
+
+![Terminal](/projects/daily-dev/theme-terminal.png)
+
+  </TabItem>
+</Tabs>
+
+
+### Criar o seu tema
+
+Copie qualquer `.conf` para `themes/<nome>.conf` e edite as cores. Ele aparece na lista do `t` automaticamente. Chaves ausentes ou inválidas usam o tema padrão.
+
+```conf
+# chave = valor  (ANSI 0-255 ou hex #rrggbb / #rgb)
+primary   = 135   # títulos, banner, post selecionado, bordas em foco
+secondary = 111   # subtítulo do post
+muted     = 245   # estatísticas, dicas, rodapé
+key       = 178   # rótulos dos campos
+link      = 86    # URLs
+tag_fg    = 0     # texto da tag
+tag_bg    = 141   # fundo da tag
+border    = 240   # bordas sem foco
+error     = 196   # erros
+bookmark  = 208   # borda do post favoritado
+accent    = 214   # avisos do login e versão
+info      = 75    # frase do login
+ok        = 78    # notificações de sucesso, cota saudável
+```
+
+Linhas que começam com `#` são comentários, e o texto depois do valor (separado por espaço) é ignorado.
+
+## Variáveis de ambiente
+
+| Variável | Efeito |
+|---|---|
+| `DAILY_DEV_TOKEN` | Token da API. Pula a tela de login |
+| `DAILY_DEV_CLIENT_ID`, `DAILY_DEV_CLIENT_SECRET` | Credenciais do app OAuth; preenchem o formulário de login OAuth |
+| `DAILY_DEV_THEME` | Nome do tema (arquivo `themes/<nome>.conf`) ou caminho completo de um `.conf`. Padrão: `default` |
+| `DAILY_DEV_TOKEN_FILE` | Caminho do arquivo do token salvo (padrão: `token.conf` ao lado do programa) |
+| `DAILY_DEV_INSECURE` | `1` ignora a verificação TLS (somente em proxies corporativos) |
+| `BROWSER` | Linux: comando do navegador usado quando o `xdg-open` não existe |
+
+<Aside type="tip">
+Para o melhor visual, use uma Nerd Font, como a JetBrainsMono Nerd Font, no terminal.
+</Aside>

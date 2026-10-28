@@ -1,0 +1,274 @@
+---
+title: Using daily-dev-tui
+description: Complete guide to daily-dev-tui usage, shortcuts, themes and settings
+---
+
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
+
+## Starting the program
+
+After [installing daily-dev-tui](/en-us/projects/daily-dev-tui/install/), open a terminal and run:
+
+```bash
+daily-dev
+```
+
+| Command | Description |
+|---|---|
+| `daily-dev` | Start the TUI |
+| `daily-dev --help` | Interactive, colored documentation (login, usage, every API request) |
+| `daily-dev --version` | Print the version |
+| `daily-dev --uninstall` | Remove the command and installed files |
+
+## 1. Choose how to sign in
+
+The start screen lets you choose between the login methods. A third option, **Auto Sign In**, appears once a token is saved locally.
+
+![Login method selector](/projects/daily-dev/login-selector.png)
+
+Use `↑`/`↓` or `1`/`2`/`3` to select, `Enter` to confirm, `Esc` to go back and `Ctrl+C` to quit.
+
+<Tabs>
+  <TabItem label="Token (Bearer)">
+
+<Steps>
+1. Sign in at [https://app.daily.dev](https://app.daily.dev).
+2. Open your account settings and find the API / Developers section.
+3. Create a token and **copy it immediately** (API access may require Daily.dev Plus).
+4. Paste it in the TUI. To skip the login screen, set the `DAILY_DEV_TOKEN` variable.
+</Steps>
+
+<Aside type="caution">
+Keep the token secret and revoke it if it leaks.
+</Aside>
+
+  </TabItem>
+  <TabItem label="Auto Sign In">
+
+After you confirm a Bearer token, the TUI saves it in a `token.conf` file in the same folder as the program (`%LOCALAPPDATA%\Programs\daily-dev` on Windows and `~/.local/bin` on Linux and macOS). The file looks like this:
+
+```conf
+token = <your token>
+```
+
+<Steps>
+1. The next time you start the program, the login screen shows **Auto Sign In (Token already saved locally)**.
+2. Choose that option (or press `3`) to sign in without typing the token again.
+3. To replace the token, sign in again with **Bearer token** (the file is overwritten).
+4. To forget the token, highlight the Auto Sign In option and press `d`, or delete the file.
+</Steps>
+
+<Aside type="danger" title="Security">
+`token.conf` holds your token in plain text (owner-only permissions on Linux and macOS). Never share, commit or attach this file to an issue. If it leaks, revoke the token at [https://app.daily.dev/settings/api](https://app.daily.dev/settings/api).
+</Aside>
+
+  </TabItem>
+  <TabItem label="OAuth">
+
+Uses the [daily.dev OAuth flow](https://docs.daily.dev/oauth-apps/) (authorization code + PKCE). OAuth apps are in beta.
+
+<Steps>
+1. On daily.dev open **Settings > API > OAuth apps** and click **Create app**.
+2. Add `http://127.0.0.1:8765/callback` as a redirect URI (it must match exactly) and copy the **Client ID** and **Client secret** (the secret is shown only once).
+3. In the TUI choose **OAuth** and enter the client ID and secret (or set `DAILY_DEV_CLIENT_ID` and `DAILY_DEV_CLIENT_SECRET`).
+4. The browser opens on the daily.dev consent screen. Click **Allow** and return to the terminal. If the browser does not open, copy the URL shown in the TUI.
+</Steps>
+
+![OAuth login](/projects/daily-dev/oauth.png)
+
+<Aside type="note">
+The TUI requests the `openid profile offline_access read write` scopes, keeps the tokens in memory only and refreshes the access token automatically. If you deny `write`, bookmarking fails with `403 insufficient_scope`. Port `8765` on `127.0.0.1` must be free and the attempt times out after 3 minutes. Nothing is stored on disk, so you sign in again on every start.
+</Aside>
+
+  </TabItem>
+</Tabs>
+
+## 2. Pick a request
+
+Choose a request from the left menu: Feeds, Posts, Search, Bookmarks, Custom Feeds, Feed Filters, Notifications, Profile, Tags and Recommend. Requests with parameters open a form, and required fields are marked with `*`.
+
+![Parameter form](/projects/daily-dev/form.png)
+
+<Steps>
+1. Use `↑`/`↓` in the options panel to select the request.
+2. Press `Enter`. If it has parameters, the form opens.
+3. Change field with `Tab` or `↑`/`↓` and fill in the values.
+4. Press `Enter` to run or `Esc` to cancel. Inside the form use `Ctrl+H` for help, because `h` is typed as text.
+</Steps>
+
+## 3. Top bar: account, quota and notifications
+
+Once you are signed in (token or OAuth), a bar above the panels shows, centered: the **user name**, the **Requests left** in the current window, the per-minute **Limit** and **Resets in** (a countdown to the quota reset). The values come from the `x-ratelimit-*` headers of the API and update after every request.
+
+`Requests left` turns orange when 25% or less remains and red at zero.
+
+Notifications appear at the top right for a few seconds: **green** for successful actions (bookmarked, opened, request ok) and **red** for failures (request failed, could not open a link, missing required field).
+
+![Top bar with user, quota and a notification](/projects/daily-dev/top-bar.png)
+
+## 4. Read and act on the results
+
+Results are shown as cards. After a search or feed, focus moves to the results and one post is selected. Move between posts with `↑`/`↓` and use:
+
+| Key | Action |
+|---|---|
+| `Enter` | Open the post on daily.dev |
+| `o` | Open the original article link |
+| `b` | Bookmark the post (the border turns orange, double while selected) |
+| `c` | Open a panel with the comments |
+| `n` | Load the next page of a paginated list |
+
+![Results with a selected post and a bookmarked post](/projects/daily-dev/results.png)
+
+### Comments
+
+The comments panel shows the newest first and is read-only (the public API cannot create comments). Use `↑`/`↓` or `PgUp`/`PgDn` to scroll and `Esc`, `q`, `c` or `Enter` to close.
+
+![Comments panel](/projects/daily-dev/comments.png)
+
+<Aside type="tip">
+If the browser cannot be opened, a floating panel shows the post and the link so you can open it manually.
+</Aside>
+
+<Aside type="caution">
+`401` means the token is invalid or revoked. `429` means you are rate limited.
+</Aside>
+
+## Keyboard shortcuts
+
+Press `h` at any time in the menu to see the shortcuts in a floating panel (inside a form use `Ctrl+H`).
+
+![Help panel](/projects/daily-dev/help-panel.png)
+
+<Tabs>
+  <TabItem label="Options panel">
+
+| Key | Action |
+|---|---|
+| `↑`/`↓` | Select option |
+| `Enter` | Run the request (opens the form if it has parameters) |
+| `Tab` | Change panel |
+| `t` | Choose a theme |
+| `h` | Show the help panel |
+| `q` | Quit |
+
+  </TabItem>
+  <TabItem label="Posts panel">
+
+| Key | Action |
+|---|---|
+| `↑`/`↓` or `j`/`k` | Previous / next post |
+| `Enter` | Open the post on daily.dev |
+| `o` | Open the original link |
+| `b` | Bookmark the post |
+| `c` | Read the comments |
+| `n` | Next page |
+| `Tab` | Change panel |
+| `t` | Choose a theme |
+| `h` | Show the help panel |
+| `q` | Quit |
+
+  </TabItem>
+  <TabItem label="Forms and panels">
+
+| Where | Keys |
+|---|---|
+| Parameter form | `Tab`/`↑`/`↓` change field, `Enter` run, `Esc` cancel, `Ctrl+H` help |
+| Comments panel | `↑`/`↓`, `PgUp`/`PgDn` scroll, `Esc`/`q`/`c`/`Enter` close |
+| Help panel | `Tab` or `←`/`→` switch tab, `Esc`/`q`/`h` close |
+| Theme panel | `↑`/`↓` preview, `Enter` apply, `Esc` cancel |
+| Login screen | `↑`/`↓` or `1`/`2`/`3` select, `Enter` confirm, `d` delete the saved token (on Auto Sign In), `Esc` back, `Ctrl+C` quit |
+
+  </TabItem>
+</Tabs>
+
+## Themes
+
+All TUI colors are variables in `.conf` files inside a `themes/` folder next to the program (`%LOCALAPPDATA%\Programs\daily-dev\themes` on Windows and `~/.local/bin/themes` on Linux and macOS). In a clone of the repository, `daily-dev-tui/themes/` is used. The themes are also built into the binary, so the TUI works even if the files are missing.
+
+| Theme | File |
+|---|---|
+| Default | `default.conf` |
+| Catppuccin Mocha | `catppuccin-mocha.conf` |
+| Nord | `nord.conf` |
+| Terminal (classic green on black, uses your terminal's ANSI palette) | `terminal.conf` |
+| Darcula | `darcula.conf` |
+
+### Choose a theme
+
+<Steps>
+1. Press `t` in the menu to open the list of themes.
+2. Use `↑`/`↓` to preview each theme live.
+3. Press `Enter` to apply or `Esc` to cancel. The choice is remembered (stored in `themes/.theme`).
+</Steps>
+
+![Theme picker](/projects/daily-dev/theme-picker.png)
+
+Or start with `DAILY_DEV_THEME=nord` (a theme name or the full path of a `.conf` file). The variable takes priority over the remembered choice.
+
+<Tabs>
+  <TabItem label="Default">
+
+![Default](/projects/daily-dev/theme-default.png)
+
+  </TabItem>
+  <TabItem label="Catppuccin Mocha">
+
+![Catppuccin Mocha](/projects/daily-dev/theme-mocha.png)
+
+  </TabItem>
+  <TabItem label="Darcula">
+
+![Darcula](/projects/daily-dev/theme-darcula.png)
+
+  </TabItem>
+  <TabItem label="Nord">
+
+![Nord](/projects/daily-dev/theme-nord.png)
+
+  </TabItem>
+  <TabItem label="Terminal">
+
+![Terminal](/projects/daily-dev/theme-terminal.png)
+
+  </TabItem>
+</Tabs>
+
+
+### Create your own theme
+
+Copy any `.conf` to `themes/<name>.conf` and edit the colors. It shows up in the `t` list automatically. Missing or invalid keys fall back to the default theme.
+
+```conf
+# key = value  (ANSI 0-255 or hex #rrggbb / #rgb)
+primary   = 135   # titles, banner, selected post, focused borders
+secondary = 111   # post subtitle
+muted     = 245   # stats, hints, footer
+key       = 178   # field labels
+link      = 86    # URLs
+tag_fg    = 0     # tag chip text
+tag_bg    = 141   # tag chip background
+border    = 240   # unfocused borders
+error     = 196   # errors
+bookmark  = 208   # bookmarked post border
+accent    = 214   # login prompts and version
+info      = 75    # login tagline
+ok        = 78    # success notifications, healthy request quota
+```
+
+Lines starting with `#` are comments, and text after the value (separated by a space) is ignored.
+
+## Environment variables
+
+| Variable | Effect |
+|---|---|
+| `DAILY_DEV_TOKEN` | API token. Skips the login screen |
+| `DAILY_DEV_CLIENT_ID`, `DAILY_DEV_CLIENT_SECRET` | OAuth app credentials; prefill the OAuth login form |
+| `DAILY_DEV_THEME` | Theme name (file `themes/<name>.conf`) or a full path to a `.conf` file. Default: `default` |
+| `DAILY_DEV_TOKEN_FILE` | Full path of the saved token file (default: `token.conf` next to the program) |
+| `DAILY_DEV_INSECURE` | `1` skips TLS verification (corporate proxies only) |
+| `BROWSER` | Linux: browser command used when `xdg-open` is not available |
+
+<Aside type="tip">
+For the best look, use a Nerd Font such as JetBrainsMono Nerd Font in your terminal.
+</Aside>

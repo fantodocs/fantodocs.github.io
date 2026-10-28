@@ -1,0 +1,159 @@
+---
+title: Instalação
+description: Como instalar o daily-dev-tui no Windows, Linux e macOS
+---
+
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
+
+## Requisitos
+
+| Sistema | O que é necessário |
+|---|---|
+| **Windows 11** | PowerShell. O Go só é necessário se você escolher compilar a partir de um clone |
+| **Linux** | `curl` ou `wget`, em x86_64 ou arm64. Não precisa de Go |
+| **macOS** | `curl`, em Intel ou Apple Silicon. Não precisa de Go |
+| **Todos** | Uma conta no [Daily.dev](https://app.daily.dev) e uma **Nerd Font** (por exemplo JetBrainsMono Nerd Font) no terminal para os ícones |
+
+<Aside type="note">
+O daily-dev-tui **não** vem embutido no instalador: ele é baixado da última release (ou compilado) durante a instalação.
+</Aside>
+
+## Instalação com um único comando
+
+Escolha o seu sistema, execute o comando, abra um **novo** terminal e digite `daily-dev`.
+
+<Tabs>
+  <TabItem label="Windows">
+
+Abra o **PowerShell** e cole o comando abaixo. Ele baixa o `daily-dev-setup.exe` da última release para uma pasta temporária e executa o instalador.
+
+```powershell title="PowerShell"
+irm https://github.com/F4NT0/daily-dev-tui/releases/latest/download/daily-dev-setup.exe -OutFile $env:TEMP\daily-dev-setup.exe; & $env:TEMP\daily-dev-setup.exe
+```
+
+<Steps>
+1. Abra o menu Iniciar, digite `PowerShell` e abra o terminal (não precisa ser como administrador).
+2. Cole o comando e pressione `Enter`. O instalador é baixado para `%TEMP%\daily-dev-setup.exe` e iniciado.
+3. Quando o instalador perguntar de onde vem o `daily-dev-tui`, escolha **baixar a última release** (recomendado) ou **compilar a partir de um clone local** (exige Go).
+4. Aguarde o fim da instalação. O instalador cria a pasta, copia os arquivos, instala os temas e atualiza o `PATH`.
+5. Feche o PowerShell, abra uma **nova** janela e digite `daily-dev`.
+</Steps>
+
+  </TabItem>
+  <TabItem label="Linux">
+
+Abra o terminal e execute:
+
+```bash
+curl -fsSL https://github.com/F4NT0/daily-dev-tui/releases/latest/download/install.sh | bash
+```
+
+<Steps>
+1. Confirme que você tem `curl` ou `wget` (`curl --version`).
+2. Cole o comando e pressione `Enter`. O script baixa o binário da última release para o seu processador (x86_64 ou arm64).
+3. O script instala o programa em `~/.local/bin/daily-dev-tui`, cria o comando `daily-dev` e baixa os temas.
+4. Se necessário, ele adiciona `~/.local/bin` ao `PATH` (em `~/.bashrc`, `~/.zshrc` ou `~/.profile`).
+5. Abra um **novo** terminal e digite `daily-dev`.
+</Steps>
+
+<Aside type="tip">
+Se os links não abrirem no navegador, instale o `xdg-utils` ou defina a variável `$BROWSER` com o comando do seu navegador.
+</Aside>
+
+  </TabItem>
+  <TabItem label="macOS">
+
+Abra o Terminal e execute (Intel e Apple Silicon):
+
+```bash
+curl -fsSL https://github.com/F4NT0/daily-dev-tui/releases/latest/download/install-macos.sh | bash
+```
+
+<Steps>
+1. Abra o app **Terminal**.
+2. Cole o comando e pressione `Enter`. O script escolhe o binário `darwin-amd64` ou `darwin-arm64` conforme o seu Mac.
+3. O script instala o programa em `~/.local/bin`, cria o comando `daily-dev` e baixa os temas.
+4. Ele adiciona `~/.local/bin` ao `PATH` (em `~/.zshrc` ou `~/.bash_profile`).
+5. Abra um **novo** terminal e digite `daily-dev`. Os links são abertos com o comando `open` do sistema.
+</Steps>
+
+<Aside type="caution">
+Se você baixar o binário pelo navegador em vez de usar o script, remova a marca de quarentena com `xattr -d com.apple.quarantine daily-dev-tui`.
+</Aside>
+
+  </TabItem>
+</Tabs>
+
+## O que o instalador faz
+
+<Tabs>
+  <TabItem label="Windows">
+
+O instalador pergunta primeiro de onde deve vir o `daily-dev-tui`: **baixar a última release** (`releases/latest/download/daily-dev-tui.exe`) ou **compilar a partir de um clone local** (exige Go). Depois ele:
+
+1. Cria `%LOCALAPPDATA%\Programs\daily-dev`.
+2. Instala o `daily-dev-tui.exe` e o launcher `daily-dev` nessa pasta.
+3. Instala os temas na pasta `themes` (arquivos existentes são mantidos).
+4. Adiciona a pasta ao `PATH` do usuário.
+
+  </TabItem>
+  <TabItem label="Linux e macOS">
+
+1. Baixa o binário da última release para a sua arquitetura.
+2. Instala em `~/.local/bin/daily-dev-tui` e cria o comando `daily-dev`.
+3. Baixa os temas para `~/.local/bin/themes`.
+4. Adiciona `~/.local/bin` ao `PATH`.
+
+  </TabItem>
+</Tabs>
+
+<Aside type="note">
+Os instaladores nunca sobrescrevem arquivos de tema que já existem, então as suas edições sobrevivem a uma reinstalação.
+</Aside>
+
+## Outras formas de instalar
+
+### Compilar o instalador (Windows)
+
+```powershell
+git clone https://github.com/F4NT0/daily-dev-tui.git
+cd daily-dev-tui\daily-dev-installer
+go build -o dist\daily-dev-setup.exe .
+.\dist\daily-dev-setup.exe
+```
+
+### Opções dos instaladores (Linux e macOS)
+
+| Variável | Padrão | Função |
+|---|---|---|
+| `DAILY_DEV_INSTALL_DIR` | `~/.local/bin` | Pasta onde o programa é instalado |
+| `DAILY_DEV_REPO` | `F4NT0/daily-dev-tui` | Repositório de onde a release é baixada |
+| `DAILY_DEV_TUI_URL` | (release) | URL completa do binário a usar no lugar da release |
+
+Exemplo:
+
+```bash
+DAILY_DEV_INSTALL_DIR=$HOME/bin curl -fsSL https://github.com/F4NT0/daily-dev-tui/releases/latest/download/install.sh | bash
+```
+
+## Desinstalar
+
+```bash
+daily-dev --uninstall
+```
+
+O comando remove o `daily-dev` e os arquivos instalados. No Linux e no macOS ele também apaga o `token.conf` (o token salvo).
+
+## Primeira execução
+
+Abra um **novo** terminal e execute:
+
+```bash
+daily-dev
+```
+
+A tela de login aparece. Veja como entrar na página de [Usabilidade](/pt-br/projects/daily-dev-tui/usage/).
+
+![Tela de escolha do método de login](/projects/daily-dev/login-selector.png)
+
+Para conferir a instalação, use `daily-dev --version`. Para a documentação interativa colorida do programa, use `daily-dev --help`.

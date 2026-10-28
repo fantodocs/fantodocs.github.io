@@ -1,36 +1,19 @@
 ---
-title: Instalando o clidocs
-description: Como instalar o clidocs com um único comando no Windows, Linux e macOS
+title: Instalação
+description: Como instalar o clidocs com um único comando no PowerShell
 ---
 
-import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
-
-![clidocs](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/new-images/cover.png)
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ## Requisitos
 
-| Requisito | Para que serve |
+| Requisito | Observações |
 |---|---|
-| **Windows 10 / 11 (64 bits)** | Sistema suportado |
-| **PowerShell 5.1+** | Já vem no Windows, usado nos diálogos de arquivo |
-| **Neovim (`nvim`)** | Editar snippets (`Enter` / `e`) |
-| **Git** | Sincronização com o GitHub (`g`) |
-| **Windows Terminal (`wt`)** | Recomendado, abre o Neovim em uma nova aba |
-| **VS Code (`code`)** | Opcional, abre arquivos com `v` |
-| **Nerd Font** (JetBrainsMono) | Ícones das pastas |
+| **Windows 11 + PowerShell** | Plataforma principal suportada |
+| **Neovim (`nvim`)** | Precisa estar no `PATH` para editar arquivos |
+| **Git** | Somente para a sincronização com o Git |
+| **Uma Nerd Font** (ex.: JetBrains Mono Nerd Font) | Ícones de pastas e linguagens |
 | **Go 1.24+** | Somente para compilar do código-fonte |
-
-Instale os pré-requisitos com o `winget`:
-
-```powershell
-winget install Neovim.Neovim
-winget install Git.Git
-winget install Microsoft.WindowsTerminal
-```
-
-:::tip[Nerd Font]
-Baixe a [JetBrainsMono Nerd Font](https://www.nerdfonts.com/font-downloads), instale os arquivos `.ttf` e defina a fonte nas configurações do perfil do Windows Terminal.
-:::
 
 ## Instalação com um único comando
 
@@ -39,73 +22,92 @@ Escolha o seu sistema operacional:
 <Tabs>
   <TabItem label="Windows">
 
-Abra o **PowerShell** e cole o comando abaixo. Ele baixa o `clidocs.exe` e o instalador (`install.exe`) da última release para `%USERPROFILE%\clidocs` e abre o instalador como Administrador.
+### Opção 1: uma linha (recomendada)
+
+Abra o **PowerShell** e cole o comando abaixo. Ele baixa o `clidocs-installer.exe` da última release do GitHub para uma pasta temporária, executa o instalador (que baixa e instala o `clidocs.exe` da última release) e apaga o instalador temporário.
 
 ```powershell title="PowerShell"
-$d = "$env:USERPROFILE\clidocs"
-New-Item -ItemType Directory -Force $d | Out-Null
-iwr https://github.com/F4NT0/clidocs/releases/latest/download/clidocs.exe -OutFile "$d\clidocs.exe"
-iwr https://github.com/F4NT0/clidocs/releases/latest/download/install.exe -OutFile "$d\install.exe"
-Start-Process "$d\install.exe" -WorkingDirectory $d -Verb RunAs
+$i="$env:TEMP\clidocs-installer.exe"; iwr https://github.com/F4NT0/clidocs/releases/latest/download/clidocs-installer.exe -OutFile $i; & $i; Remove-Item $i -Force
 ```
 
-Depois, siga o assistente do instalador:
+:::note
+A última release precisa ter o `clidocs-installer.exe` anexado junto ao `clidocs.exe`.
+:::
 
-<Steps>
-1. Escolha a pasta de instalação e clique em **Next**.
-2. Se já existir um `.exe` no local (atualização), o instalador pergunta se deseja substituí-lo.
-3. Aguarde a mensagem de sucesso. O `clidocs` é adicionado ao `PATH` automaticamente.
-4. Abra um **novo** terminal e execute `clidocs`.
-</Steps>
+![O instalador mostra os passos que vai ex](/projects/clidocs/one-command-install.png)
 
-![Installer](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-pagina-inicial.png)
+O instalador mostra os passos que vai executar e pergunta se você deseja instalar (`y` para confirmar).
 
-![Installer path](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-local-salvar.png)
+![Ao terminar, todos os passos aparecem co](/projects/clidocs/one-command-install-complete.png)
 
-![Installer update](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-update-exe.png)
-
-![Installer success](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/instalador-sucesso.png)
-
-### Download manual
-
-Baixe `clidocs.exe` e `install.exe` direto na [página de releases](https://github.com/F4NT0/clidocs/releases), coloque os dois na mesma pasta e execute `.\install.exe` como **Administrador**.
+Ao terminar, todos os passos aparecem como concluídos e o instalador informa onde o `clidocs` foi instalado.
 
   </TabItem>
   <TabItem label="Linux">
 
 :::caution[Linux ainda não é suportado]
-O clidocs usa APIs do Windows (`syscall.NewLazyDLL`, PowerShell e diálogos nativos de arquivo). Por isso não existe binário nem instalador para Linux, e compilar com `GOOS=linux` falha. Hoje não há um comando de instalação nativo para Linux.
+O clidocs usa APIs do Windows (`syscall.NewLazyDLL`, PowerShell e diálogos nativos de arquivo). Por isso não existe binário nem instalador para Linux. Hoje não há um comando de instalação nativo para Linux.
 :::
-
-A alternativa é usar o **WSL 2** e abrir o `clidocs.exe` instalado no Windows:
-
-```bash title="WSL"
-/mnt/c/Users/SEU_USUARIO/clidocs/clidocs.exe
-```
 
   </TabItem>
   <TabItem label="macOS">
 
 :::caution[macOS ainda não é suportado]
-Pelos mesmos motivos do Linux, não existe binário nem instalador para macOS. Quando houver suporte nativo, o comando de instalação será publicado aqui.
+Pelos mesmos motivos do Linux, não existe binário nem instalador para macOS. Quando houver suporte nativo, o comando será publicado aqui.
 :::
-
-Acompanhe o andamento na [página de releases](https://github.com/F4NT0/clidocs/releases) do projeto.
 
   </TabItem>
 </Tabs>
 
-## Compilando do código-fonte
+## O que o instalador faz
 
-Requer **Go 1.24+**.
+1. Encontra a última release no GitHub
+2. Baixa o `clidocs.exe`
+3. Verifica o checksum SHA-256
+4. Instala em `%LOCALAPPDATA%\clidocs`
+5. Adiciona essa pasta ao `PATH` do usuário
+6. Cria o comando `clidocs` no PowerShell
+
+Abra um **novo** terminal e digite `clidocs`. Executar o instalador de novo atualiza uma instalação existente.
+
+## Outras opções
+
+### Opção 2: executável do instalador
+
+Baixe o `clidocs-installer.exe` na [página de releases](https://github.com/F4NT0/clidocs/releases) e execute, ou compile o instalador:
+
+```powershell
+go build -o clidocs-installer.exe ./cmd/clidocs-installer
+.\clidocs-installer.exe
+```
+
+### Opção 3: pelo repositório clonado
 
 ```powershell
 git clone https://github.com/F4NT0/clidocs.git
 cd clidocs
-go mod tidy
-go build -o clidocs.exe .
-.\clidocs.exe
+go run . --install
 ```
+
+:::note
+`go run . --install` executa o mesmo instalador e instala a **última release publicada**, não a árvore de trabalho local.
+:::
+
+### Opção 4: de um clidocs já instalado
+
+```powershell
+clidocs --install      # instala ou atualiza para a última release
+clidocs --install -y   # pula a confirmação
+```
+
+### Desinstalar
+
+```powershell
+clidocs --uninstall      # pede confirmação
+clidocs --uninstall -y   # pula a confirmação
+```
+
+Remove o alias do PowerShell, as entradas do `PATH` e todo `clidocs.exe` encontrado no `PATH`. As pastas só são removidas quando estão vazias. **Seus snippets nunca são apagados.**
 
 ## Primeira execução
 
@@ -119,4 +121,3 @@ clidocs
 Os snippets ficam em `%USERPROFILE%\clidocs_snippets\`. A pasta é criada automaticamente na primeira execução e cada subpasta vira uma categoria no painel Folders.
 :::
 
-Próximo passo: veja como [usar o clidocs](/pt-br/projects/clidocs/usage/).

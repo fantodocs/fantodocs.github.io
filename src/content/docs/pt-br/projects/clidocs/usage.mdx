@@ -1,17 +1,12 @@
 ---
-title: Usando o clidocs
+title: Usabilidade
 description: Guia completo de uso, atalhos e configurações do clidocs
 ---
 
 import { Steps, Tabs, TabItem, FileTree, Badge } from '@astrojs/starlight/components';
 
-![clidocs](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/new-images/cover.png)
-
-<Badge text="Go 1.24+" variant="note" /> <Badge text="Windows 11" variant="tip" /> <Badge text="PowerShell" variant="caution" /> <Badge text="Neovim" variant="success" />
 
 ## Executando o programa
-
-Depois de [instalar o clidocs](/pt-br/projects/clidocs/install/), abra o terminal e execute:
 
 ```powershell
 # Abre a pasta padrão de snippets (~\clidocs_snippets)
@@ -29,533 +24,355 @@ clidocs .\docs\snippets
 Os snippets ficam salvos em `%USERPROFILE%\clidocs_snippets\`. A pasta é criada na primeira execução e cada subpasta vira uma categoria no painel Folders.
 :::
 
-## Tela inicial
+## Comandos
 
-Ao executar `clidocs` **sem argumentos**, uma tela de boas-vindas em ASCII é exibida. Ela é ignorada quando você passa um caminho (`clidocs .` ou `clidocs <caminho>`).
-
-![clidocs](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/screenshot-main.png)
+| Comando | Descrição |
+|---|---|
+| `clidocs` | Inicia com a tela inicial (pasta padrão de snippets ou escolher outra) |
+| `clidocs .` | Abre a pasta atual como raiz dos snippets |
+| `clidocs <caminho>` | Abre uma pasta específica, pulando a tela inicial |
+| `clidocs --help` | Ajuda interativa com uma aba por tópico (`-h`, `help`) |
+| `clidocs --version` | Mostra a versão instalada (`-v`, `version`) |
+| `clidocs --install` | Instala ou atualiza pela última release do GitHub |
+| `clidocs --uninstall` | Remove o clidocs do computador |
 
 ## Interface
 
-A interface tem três painéis controlados pelo teclado:
+### Tela inicial
 
-![clidocs interface](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/visualization.png)
+Esta é a tela inicial do programa, exibida quando você executa o comando `clidocs` sem argumentos. Use `↑` / `↓` para escolher entre abrir a pasta padrão de snippets ou procurar outra pasta, `Enter` para confirmar e `Ctrl+C` para sair.
 
-| Painel | Descrição |
+![Tela inicial do clidocs](/projects/clidocs/interface.png)
+
+### Tela principal
+
+Esta é a tela principal do programa, exibida depois que você escolhe uma pasta. Ela fica vazia no primeiro uso: pressione `n` no painel Folders para criar sua primeira pasta. A barra inferior lista os atalhos do painel ativo.
+
+A tela é dividida em três painéis. `Tab` alterna entre eles e o painel ativo tem a borda azul.
+
+| Painel | O que faz |
 |---|---|
-| **Folders** | Categorias dos snippets. A pasta selecionada aparece em azul com `>`. Pastas com subpastas mostram o indicador `›`. Use `←` para voltar. |
-| **Snippets** | Arquivos da pasta selecionada. O arquivo selecionado aparece em verde, com o selo da extensão na cor da linguagem. |
-| **Preview** | Conteúdo com destaque de sintaxe. Mostra o caminho completo do arquivo em laranja e permite rolagem. |
+| **Folders** | Lista as pastas e subpastas do diretório de snippets. Pastas com subpastas mostram o marcador `>` e os favoritos mostram uma estrela. |
+| **Files** | Lista os arquivos da pasta selecionada com a tag da linguagem e a idade de cada arquivo. |
+| **Preview** | Mostra o arquivo selecionado com destaque de sintaxe, ou Markdown renderizado (tabelas, listas, cores de TODO e ícones). |
 
-## Atalhos de teclado
+![Tela principal com os três painéis](/projects/clidocs/main-screen.png)
 
-Clique na aba para ver os atalhos de cada painel.
+## Painéis e atalhos
+
+### Atalhos globais
+
+| Tecla | Ação |
+|---|---|
+| `Tab` | Próximo painel |
+| `s` | Vai para o painel Folders |
+| `g` | Sincroniza os snippets com o Git |
+| `G` | Edita a configuração do Git |
+| `:` | Abre o console de comandos |
+| `q` / `Ctrl+C` | Sair |
+
+### Painel Folders
+
+Mostra as pastas do diretório de snippets. Mover o cursor atualiza os painéis Files e Preview. `Enter` em uma pasta com subpastas entra no **parent-view**: a primeira linha é `~/` (os arquivos da própria pasta), seguida de uma linha por subpasta. `←` volta um nível.
+
+![Painel Folders](/projects/clidocs/folders-panel.png)
+
+| Tecla | Ação |
+|---|---|
+| `↑` / `k`, `↓` / `j` | Move o cursor |
+| `Enter` / `→` / `l` | Abre a pasta (entra no parent-view se tiver subpastas) |
+| `←` / `h` | Volta um nível |
+| `n` | Nova pasta |
+| `N` | Nova subpasta dentro da pasta selecionada |
+| `r` | Renomeia a pasta selecionada |
+| `d` | Apaga a pasta selecionada (exige confirmação) |
+| `D` | Modo de exclusão múltipla: `Space` seleciona, `D` confirma, `Esc` cancela |
+| `/` | Busca pastas recursivamente |
+| `f` | Favorita / desfavorita a pasta selecionada |
+| `F` | Abre a lista de favoritos |
+| `H` | Volta ao diretório original de snippets |
+| `o` | Mostra informações sobre o diretório de snippets |
+
+### Painel Files
+
+Mostra os arquivos da pasta selecionada. O título mostra quantos snippets existem. Cada linha tem a tag da linguagem, o nome do arquivo e a pasta com a idade do arquivo.
+
+![Painel Files](/projects/clidocs/files-panel.png)
+
+| Tecla | Ação |
+|---|---|
+| `↑` / `k`, `↓` / `j` | Move o cursor (o Preview atualiza ao vivo) |
+| `Enter` / `e` | Abre o arquivo no Neovim |
+| `n` | Novo arquivo |
+| `r` | Renomeia o arquivo selecionado |
+| `d` | Apaga o arquivo selecionado (exige confirmação) |
+| `m` | Move o arquivo para outra pasta |
+| `c` | Importa um arquivo de qualquer lugar com o seletor de arquivos |
+| `/` | Filtra arquivos pelo nome (aceita globs como `*.go`) |
+
+### Painel Preview (snippet)
+
+Mostra o conteúdo do arquivo selecionado. O código é destacado com o tema GitHub Dark e o Markdown é renderizado com títulos, listas e tabelas estilizados.
+
+![Painel Preview](/projects/clidocs/preview-panel.png)
+
+| Tecla | Ação |
+|---|---|
+| `↑` / `k`, `↓` / `j` | Rola |
+| `c` | Copia o arquivo inteiro para a área de transferência |
+| `e` | Edita o arquivo no Neovim |
+| `o` | Abre a localização do arquivo no Windows Explorer |
+| `z` | Alterna o zoom (o preview ocupa a tela toda) |
+| `L` | Alterna os números de linha |
+| `/` | Busca uma palavra no arquivo; `Enter` encontra os resultados e `n` / `N` pulam entre eles |
+
+## Como usar
+
+### Criar pastas e subpastas
+
+<Steps>
+1. Foque o painel **Folders**.
+2. Pressione `n`, digite o nome e pressione `Enter` para criar uma pasta.
+3. Selecione uma pasta e pressione `N` para criar uma **subpasta** dentro dela.
+4. `Esc` cancela.
+</Steps>
+
+![Criar pasta](/projects/clidocs/create-folder.png)
+
+Para criar uma subpasta, selecione a pasta pai e pressione `N`. O diálogo mostra em qual pasta a nova subpasta será criada (`Inside: Folder1/`). Pastas que contêm subpastas mostram o marcador `>` na lista.
+
+![Criar subpasta](/projects/clidocs/create-subfolder.png)
+
+### Renomear uma pasta
+
+:::note
+A opção de renomear só está disponível quando o painel **Folders** está em foco (use `s` ou `Tab` para chegar até ele).
+:::
+
+<Steps>
+1. Selecione a pasta no painel Folders.
+2. Pressione `r`. Um diálogo mostra o nome atual (`Current: Folder1/`) e um campo já preenchido para o novo nome.
+3. Digite o novo nome e pressione `Enter` para confirmar, ou `Esc` para cancelar.
+</Steps>
+
+![Renomear pasta](/projects/clidocs/rename-folder.png)
+
+### Favoritar uma pasta
+
+:::note
+Os favoritos só estão disponíveis quando o painel **Folders** está em foco.
+:::
+
+<Steps>
+1. Selecione a pasta no painel Folders.
+2. Pressione `f`. Uma estrela aparece ao lado do nome da pasta.
+3. Pressione `f` de novo na mesma pasta para remover a estrela.
+4. Pressione `F` (maiúsculo) para abrir a lista de favoritos.
+</Steps>
+
+![Favoritar pasta](/projects/clidocs/favorite-folder.png)
+
+Na lista de favoritos use `↑` / `↓` para navegar, `Enter` para ir até a pasta, `o` para abri-la no Explorer, `f` para removê-la dos favoritos e `Esc` para fechar.
+
+![Lista de favoritos](/projects/clidocs/favorites-list.png)
+
+### Apagar pastas
+
+:::danger
+Apagar pastas só está disponível quando o painel **Folders** está em foco. Apagar uma pasta remove tudo que está dentro dela.
+:::
 
 <Tabs>
-  <TabItem label="Folders">
+  <TabItem label="Uma pasta">
 
-| Tecla | Ação |
-|---|---|
-| `↑` / `k` | Pasta anterior |
-| `↓` / `j` | Próxima pasta |
-| `Enter` | Abre a pasta (parent-view se tiver subpastas) |
-| `←` | Volta ao diretório pai |
-| `n` | Nova pasta |
-| `N` | Nova **subpasta** na pasta selecionada |
-| `/` | Buscar pastas pelo nome |
-| `R` | **Renomear** a pasta |
-| `D` | **Apagar** a pasta e todo o conteúdo (com confirmação) |
-| `f` | Favoritar / desfavoritar |
-| `F` | Abre o **modal de favoritos** |
-| `H` | Volta ao diretório original de snippets |
-| `o` | Informações do diretório de snippets |
-| `Tab` / `→` | Próximo painel |
-| `q` / `Ctrl+C` | Sair |
+Selecione a pasta e pressione `d`. Um diálogo pede confirmação e avisa que a pasta e todo o seu conteúdo serão apagados e que isso não pode ser desfeito. Pressione `Enter` ou `y` para apagar, ou `Esc` ou `n` para cancelar.
+
+![Apagar pasta](/projects/clidocs/delete-folder.png)
 
   </TabItem>
-  <TabItem label="Snippets">
+  <TabItem label="Várias pastas">
 
-| Tecla | Ação |
-|---|---|
-| `↑` / `k` | Arquivo anterior |
-| `↓` / `j` | Próximo arquivo |
-| `Enter` | Abre o arquivo no Neovim |
-| `/` | **Busca inline** de arquivos pelo nome |
-| `n` | Novo arquivo |
-| `r` | **Renomear** arquivo |
-| `m` | Mover arquivo para outra pasta |
-| `c` | Importar arquivo pelo seletor do Windows |
-| `d` | Apagar arquivo (com confirmação) |
-| `Tab` | Próximo painel |
+Pressione `D` para entrar no modo de exclusão múltipla, mova com `↑` / `↓`, pressione `Space` para selecionar ou desmarcar cada pasta, pressione `D` de novo para confirmar e `Esc` para cancelar. As pastas selecionadas ficam destacadas em vermelho. Um diálogo mostra quantas pastas serão apagadas e avisa que isso não pode ser desfeito. Pressione `Enter` ou `y` para apagar, ou `Esc` ou `n` para cancelar.
 
-  </TabItem>
-  <TabItem label="Preview">
-
-| Tecla | Ação |
-|---|---|
-| `↑` / `k` | Rolar para cima |
-| `↓` / `j` | Rolar para baixo |
-| `L` | Alterna números de linha |
-| `/` | **Busca por palavra** no arquivo |
-| `c` | **Copia** todo o conteúdo |
-| `e` | Abre no **Neovim** |
-| `v` | Abre no **VS Code** |
-| `o` | Abre a **pasta** no Explorer |
-| `Tab` | Próximo painel |
-| `q` / `Ctrl+C` | Sair |
-
-  </TabItem>
-  <TabItem label="Busca em Snippets">
-
-| Tecla | Ação |
-|---|---|
-| Digitar | Filtra em tempo real (aceita glob como `*.go`) |
-| `↑` / `↓` | Navega nos resultados, o preview atualiza |
-| `Enter` | Confirma e sai da busca |
-| `Esc` | Cancela e restaura a lista |
-
-  </TabItem>
-  <TabItem label="Busca no Preview">
-
-| Tecla | Ação |
-|---|---|
-| Digitar | Adiciona à busca, **inclusive `n`** |
-| `Enter` | Encontra todos os resultados |
-| `n` | Próximo resultado (somente após `Enter`) |
-| `N` | Resultado anterior (somente após `Enter`) |
-| `Esc` | Fecha a busca |
-
-  </TabItem>
-  <TabItem label="Navegador de subpastas">
-
-| Tecla | Ação |
-|---|---|
-| `↑` / `k` | Entrada anterior |
-| `↓` / `j` | Próxima entrada |
-| `Enter` em **diretório** | Define como raiz do painel Folders |
-| `Enter` em **arquivo** | Carrega no Preview |
-| `Backspace` | Sobe um nível (ou fecha o modal na raiz) |
-| `Esc` | Fecha o modal |
-
-  </TabItem>
-  <TabItem label="Globais">
-
-| Tecla | Ação |
-|---|---|
-| `Tab` / `→` / `←` | Alterna entre painéis |
-| `s` | Vai ao painel Folders |
-| `g` | Sincroniza com o GitHub |
-| `G` | Edita a configuração do GitHub |
-| `:` | Abre o **console** |
-| `q` / `Ctrl+C` | Sair |
+![Apagar várias pastas](/projects/clidocs/delete-multiple-folders.png)
 
   </TabItem>
 </Tabs>
 
-## Gerenciando pastas
-
-### Criar uma pasta
+### Criar arquivos dentro de uma pasta
 
 <Steps>
-1. Foque o painel **Folders**.
-2. Pressione `n`, digite o nome e confirme com `Enter` (ou `Esc` para cancelar).
-</Steps>
-
-![Create folder](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/create-new-folder.png)
-
-### Renomear uma pasta
-
-<Steps>
-1. Navegue até a pasta no painel **Folders**.
-2. Pressione `R`. Um modal aparece com o nome atual.
-3. Edite o nome e confirme com `Enter`. Os favoritos que apontam para a pasta são atualizados automaticamente.
-</Steps>
-
-![Rename folder](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/rename-folder.png)
-
-### Apagar uma pasta
-
-<Steps>
-1. Navegue até a pasta no painel **Folders**.
-2. Pressione `D`. Um modal de confirmação aparece.
-3. Pressione `Enter` ou `y` para apagar, `Esc` ou `n` para cancelar.
-</Steps>
-
-:::danger[Atenção]
-A exclusão é permanente e recursiva: todos os arquivos e subpastas são removidos do disco.
-:::
-
-![Delete folder](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/delete-folder.png)
-
-## Navegação por subpastas
-
-Pastas que contêm subpastas mostram o indicador `›` ao lado do nome.
-
-![Subfolder indicator](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/subfolder-navigation.png)
-
-### Navegando pelas subpastas
-
-<Steps>
-1. Selecione uma pasta com `›` no painel Folders. O painel Snippets já mostra os arquivos diretos dela.
-2. Pressione `Enter` para entrar no **modo parent-view**: o título do painel muda para o nome da pasta com `← back`, a primeira linha é `~/` (arquivos da própria pasta) e as demais são as subpastas.
-3. Pressione `Enter` em uma subpasta. Sem sub-subpastas, o programa entra direto nela. Com filhos, entra em parent-view de novo.
-4. Pressione `←` para voltar ao nível anterior.
-</Steps>
-
-![Subfolder snippets](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/subfolder-snippets.png)
-
-### Criar uma subpasta
-
-<Steps>
-1. Selecione uma pasta no painel Folders.
-2. Pressione `N` e digite o nome da subpasta.
-3. Confirme com `Enter` ou cancele com `Esc`.
-</Steps>
-
-![Subfolder creation](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/subfolder-creation.png)
-
-## Busca de pastas
-
-<Steps>
-1. Foque o painel **Folders**.
-2. Pressione `/`. O título passa a mostrar `/ busca█`.
-3. Digite para filtrar. Use `↑`/`↓` para navegar nos resultados.
-4. `Enter` confirma e `Esc` cancela e restaura a lista completa.
-</Steps>
-
-![Folder search](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/search-folders.png)
-
-## Gerenciando snippets
-
-### Criar um arquivo
-
-<Steps>
-1. Foque o painel **Snippets** com uma pasta selecionada.
+1. Selecione uma pasta e foque o painel **Files** com `Tab`.
 2. Pressione `n`.
-3. **Passo 1:** digite o nome do arquivo (sem extensão) e pressione `Enter` ou `Tab`.
-4. **Passo 2:** digite a extensão (por exemplo `go`, `py`, `md`) e pressione `Enter` para criar e abrir.
+3. Digite o nome do arquivo (sem extensão) e pressione `Enter` ou `Tab`.
+4. Digite a extensão (por exemplo `go`, `py`, `md`) e pressione `Enter`. O arquivo é criado e aberto no Neovim.
 </Steps>
 
-![Create file](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/create-new-file.png)
+![Criar arquivo](/projects/clidocs/create-file.png)
 
-### Renomear um snippet
+### Editar arquivos
 
-<Steps>
-1. Navegue até o arquivo no painel **Snippets**.
-2. Pressione `r`. O modal mostra o nome atual.
-3. Edite e confirme com `Enter`, ou cancele com `Esc`.
-</Steps>
+Pressione `Enter` ou `e` em um arquivo (painel Files) ou `e` (painel Preview) para abri-lo no Neovim. Salve com `:w`, saia com `:q`, ou faça os dois com `:wq`. Ao voltar para o clidocs o preview é atualizado. No console, o comando `nvim` mostra uma referência rápida do Neovim.
 
-![Rename file](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/rename-file.png)
+![Editando um arquivo no Neovim](/projects/clidocs/edit-file.png)
 
-### Apagar um arquivo
+### Painel de snippet após salvar
 
-<Steps>
-1. Navegue até o arquivo no painel **Snippets**.
-2. Pressione `d`. O modal mostra o nome do arquivo.
-3. `Enter` ou `y` apaga, `Esc` ou `n` cancela.
-</Steps>
+Depois de salvar e sair do Neovim (`:wq`), o clidocs mostra o resultado na hora. O painel Files lista o snippet com a tag da linguagem, a pasta e a idade, e o painel Preview (o painel de snippet) mostra o conteúdo salvo: o Markdown é renderizado com texto estilizado e links, e os arquivos de código recebem destaque de sintaxe. A partir daqui você pode rolar, buscar (`/`), copiar (`c`), editar de novo (`e`) ou abrir a pasta (`o`).
 
-:::caution[Atenção]
-A exclusão de arquivos é permanente.
+![Painel de snippet após salvar o arquivo](/projects/clidocs/snippet-panel.png)
+
+### Renomear um arquivo
+
+:::note
+A opção de renomear só está disponível quando o painel **Files** está em foco (use `Tab` para chegar até ele).
 :::
 
-![Delete file](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/delete-file.png)
-
-### Mover um arquivo para outra pasta
-
 <Steps>
-1. Navegue até o arquivo no painel **Snippets**.
-2. Pressione `m` (são necessárias pelo menos 2 pastas).
-3. Escolha a pasta de destino com `↑`/`↓`.
-4. Pressione `Enter` para mover.
+1. Selecione o arquivo no painel Files.
+2. Pressione `r`. Um diálogo mostra o nome atual (`Current: File1.md`) e um campo já preenchido com ele, extensão incluída.
+3. Digite o novo nome e pressione `Enter` para confirmar, ou `Esc` para cancelar.
 </Steps>
 
-![Move file](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/move-file.png)
+![Renomear arquivo](/projects/clidocs/rename-file.png)
 
-### Busca inline de arquivos
+### Mover um arquivo
+
+:::note
+Mover arquivos só está disponível quando o painel **Files** está em foco.
+:::
 
 <Steps>
-1. Foque o painel **Snippets**.
-2. Pressione `/`. O título vira um campo de busca.
-3. Digite para filtrar (por exemplo `*.go`, `docker`, `main.go`).
-4. Use `↑`/`↓` para navegar. O preview atualiza ao vivo.
-5. `Enter` confirma e `Esc` cancela.
+1. Selecione o arquivo no painel Files.
+2. Pressione `m`. Um diálogo mostra o nome do arquivo e a lista de pastas e subpastas para onde você pode movê-lo.
+3. Use `↑` / `↓` para escolher a pasta de destino. A última entrada, `Browse external folder...`, permite escolher uma pasta fora do diretório de snippets.
+4. Pressione `Enter` para mover o arquivo, ou `Esc` para cancelar.
 </Steps>
 
-![Inline file search](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/search-filter-snippets.png)
+![Mover arquivo](/projects/clidocs/move-file.png)
 
-## Painel Preview
+### Importar um arquivo
 
-O painel Preview mostra o conteúdo do arquivo selecionado com destaque de sintaxe, além de informações e ações extras.
-
-### Caminho do arquivo
-
-Quando um arquivo é carregado, o **caminho absoluto completo** aparece em laranja abaixo do título.
-
-![File path indicator](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/file-path-indicator.png)
-
-### Ações de abertura
-
-| Tecla | Ação |
-|---|---|
-| `e` | Abre o arquivo no **Neovim** (nova janela do Windows Terminal) |
-| `v` | Abre o arquivo no **VS Code** (`code <caminho>`) |
-| `o` | Abre a **pasta do arquivo** no Explorer |
-
-### Busca por palavra
+:::note
+Importar arquivos só está disponível quando o painel **Files** está em foco.
+:::
 
 <Steps>
-1. Pressione `/`. Uma barra de busca aparece abaixo do título.
-2. Digite a palavra ou frase.
-3. Pressione `Enter`. As linhas encontradas são destacadas: **`▶` laranja** é o resultado atual e **`•` verde** são os demais.
-4. Use `n` / `N` para percorrer os resultados.
-5. `Esc` fecha a busca.
+1. Selecione a pasta que vai receber os arquivos e foque o painel Files.
+2. Pressione `c`. O clidocs abre o seletor de arquivos do Windows (a janela do explorador de arquivos) e mostra a mensagem `Opening file picker...`.
+3. No seletor, escolha um ou mais arquivos e confirme. Eles são copiados para a pasta atual (`Folder1` no exemplo).
 </Steps>
 
-![Preview word search](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/search-word-visualization.png)
+![Importar arquivo](/projects/clidocs/import-file.png)
 
-### Números de linha
+### Apagar arquivos
 
-Pressione `L` para alternar os números de linha. Com a opção ativa, as linhas encontradas na busca mostram o número em laranja (atual) ou verde (outros).
-
-![Line numbers](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/Show_Line_Numbers.png)
-
-### Preview de Markdown
-
-Arquivos `.md` e `.markdown` são renderizados com **[glamour](https://github.com/charmbracelet/glamour)**, no estilo GitHub Dark. Um selo **`[MD]`** aparece no título do preview.
-
-| Markdown | Renderizado como |
-|---|---|
-| `# Título` | Título colorido em negrito |
-| `**negrito**` | Texto em **negrito** |
-| `*itálico*` | Texto em *itálico* |
-| Código inline entre crases | Bloco de código inline |
-| Bloco com crases e linguagem | Código com destaque de sintaxe |
-| `- item` | Lista com marcadores |
-| `> citação` | Bloco de citação |
-| `[link](url)` | Link estilizado |
-| `---` | Linha horizontal |
-
-:::note[LaTeX]
-Fórmulas LaTeX (`$x^2$`, `$$\int$$`) não são renderizadas, pois o terminal não tem motor matemático. Escreva em ASCII (`x²`) ou use um bloco de código.
+:::caution
+Apagar arquivos só está disponível quando o painel **Files** está em foco.
 :::
-
-![Markdown preview](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/markdown-preview.png)
-
-### Colorização de palavras-chave
-
-Palavras de status escritas em maiúsculas em qualquer arquivo markdown são coloridas automaticamente no preview, sem sintaxe especial.
-
-| Palavra | Cor | Observação |
-|---|---|---|
-| `TODO` | Azul suave | Tarefa não iniciada |
-| `DOING` / `WORKING` | Amarelo | Tarefa em andamento |
-| `DONE` / `FINISH` | Verde suave | Tarefa concluída, com ícone antes da palavra |
-| `FAIL` / `NOT` | Vermelho | Tarefa com falha, com ícone antes da palavra |
-
-:::tip[Nerd Font]
-Os ícones exigem uma **Nerd Font** configurada no terminal (por exemplo JetBrainsMono Nerd Font).
-:::
-
-### Atalhos de ícones
-
-Você pode inserir ícones Nerd Font em qualquer markdown com shortcodes. Eles são trocados por ícones coloridos na renderização.
-
-| Shortcode | Ícone | Cor |
-|---|---|---|
-| `:check:` | `nf-fa-circle_check` | Verde |
-| `:x:` | `nf-fa-times_circle` | Vermelho |
-| `:work:` | `nf-cod-warning` | Amarelo |
-
-Exemplo:
-
-```markdown
-- :check: Deploy em produção
-- :x: Rollback falhou, investigar logs
-- :work: Pipeline rodando, aguardando resultado
-```
-
-### Copiar para a área de transferência
-
-Pressione `c` no painel Preview para copiar todo o conteúdo do arquivo. Uma mensagem verde confirma a ação.
-
-![Copy to clipboard](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/copy-to-clipboard.png)
-
-## Favoritos de pastas
-
-Favoritos marcam as pastas mais usadas para você pular até elas rapidamente.
-
-### Marcando um favorito
 
 <Steps>
-1. Selecione uma pasta no painel **Folders**.
-2. Pressione `f`. A pasta ganha o indicador `★` e uma mensagem verde confirma.
-3. Pressione `f` de novo para desfavoritar.
+1. Selecione o arquivo no painel Files.
+2. Pressione `d`. Um diálogo pergunta `Are you sure you want to delete:` e mostra o nome do arquivo.
+3. Pressione `Enter` ou `y` para apagar, ou `Esc` ou `n` para cancelar.
 </Steps>
 
-:::note[Favoritos]
-Os favoritos são salvos em `.clidocs_favorites.json` dentro da pasta de snippets e persistem entre sessões.
-:::
+![Apagar arquivo](/projects/clidocs/delete-file.png)
 
-![Folder favorites](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/folder-favorites.png)
+A tecla `/` inicia uma busca em todos os painéis. O que ela busca depende de qual painel está em foco.
 
-### Navegando pelos favoritos
+### Busca de pastas
+
+Disponível quando o painel **Folders** está em foco.
 
 <Steps>
-1. Pressione `F` (maiúsculo) no painel Folders para abrir o **modal de favoritos**.
-2. Use `↑`/`↓` e `Enter` para pular para a pasta.
-3. Pressione `f` dentro do modal para desfavoritar a entrada selecionada.
-4. `Esc` ou `F` fecham o modal.
+1. Pressione `/`. Um diálogo de busca abre e lista as pastas, incluindo as subpastas.
+2. Digite parte do nome de uma pasta. A lista é filtrada enquanto você digita.
+3. Use `↑` / `↓` para escolher um resultado e pressione `Enter` para ir até a pasta.
+4. Pressione `Esc` para fechar a busca sem alterar nada.
 </Steps>
 
-![Favorites modal](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/favorites-modal.png)
+![Busca de pastas](/projects/clidocs/folder-search.png)
 
-### Voltando ao diretório inicial
+### Busca de arquivos
 
-Se você mudou o diretório de snippets, o título do painel Folders mostra **`H:home`**. Pressione `H` para voltar ao diretório original.
-
-## Diretório de snippets
-
-Pressione `o` (nos painéis Folders ou Snippets) para abrir o modal de informações do diretório.
-
-| Ação | Descrição |
-|---|---|
-| `Enter` | Abre a pasta de snippets no Explorer |
-| `s` | Abre um seletor de pastas no estilo do Explorer para escolher outro diretório |
-| `Esc` | Fecha o modal |
-
-:::note[Info]
-A mudança de diretório vale imediatamente. O diretório padrão original (`%USERPROFILE%\clidocs_snippets`) nunca é apagado.
-:::
-
-![Snippets directory](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/snippet-directory.png)
-
-## Integração com o Neovim
-
-Ao pressionar `Enter` em um arquivo do painel Snippets (ou `e` no Preview), o clidocs abre o **Neovim em uma nova janela do Windows Terminal**.
-
-![Open in Neovim](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/open-in-neovim.png)
-
-:::tip[Fallback]
-Se o Windows Terminal (`wt`) não estiver disponível, o Neovim assume o terminal atual.
-:::
-
-## Importar arquivos
-
-Copie qualquer arquivo do computador para a pasta selecionada:
+Disponível quando o painel **Files** está em foco.
 
 <Steps>
-1. Foque o painel **Snippets**.
-2. Pressione `c`.
-3. O diálogo nativo **Abrir arquivo** do Windows aparece.
-4. Selecione um ou mais arquivos e clique em Abrir.
+1. Pressione `/`. Uma barra de busca substitui o título do painel.
+2. Digite parte do nome de um arquivo. A lista é filtrada enquanto você digita e globs como `*.go` são aceitos.
+3. Use `↑` / `↓` para percorrer os resultados. O painel Preview atualiza ao vivo.
+4. Pressione `Enter` para manter a seleção, ou `Esc` para cancelar e restaurar a lista completa.
 </Steps>
 
-:::tip[Dica]
-A seleção múltipla é suportada: segure `Ctrl` ou `Shift` no diálogo.
-:::
+![Busca de arquivos](/projects/clidocs/file-search.png)
 
-![Import file](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/import-file.png)
+### Busca no Preview
 
-## Sincronização com o GitHub
-
-Faça backup e compartilhe seus snippets sincronizando com um repositório do GitHub.
-
-![GitHub sync](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/sync-git.png)
-
-### Primeiro uso
-
-Pressione `g`. Um modal de configuração aparece:
-
-| Campo | Exemplo |
-|---|---|
-| **URL do repositório** | `https://github.com/usuario/snippets.git` |
-| **Usuário** | `seu-usuario-github` |
-| **E-mail** | `voce@exemplo.com` |
-
-Navegue pelos campos com `Enter` ou `Tab` / `Shift+Tab`. A configuração é salva em `.clidocs_git.json`.
-
-![Sync configuration](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/sync-config.png)
-
-### Como a sincronização funciona
+Disponível quando o painel **Preview** está em foco e há um arquivo carregado. Busca palavras dentro do conteúdo do arquivo.
 
 <Steps>
-1. `git init` (somente na primeira vez).
-2. Baixa as mudanças remotas antes, para evitar conflitos.
-3. `git add -A`, `git commit` e `git push -u origin main`.
-4. Mostra um modal de sucesso ou erro.
+1. Pressione `/`. Uma barra de busca aparece.
+2. Digite a palavra ou frase, inclusive a letra `n`, e pressione `Enter`. Cada ocorrência aparece em **negrito verde** dentro do texto. Em arquivos de código, as linhas com ocorrências também são marcadas: a atual com uma seta laranja e as demais com um ponto verde.
+3. Depois do primeiro `Enter`, pressione `n` para ir à próxima ocorrência e `N` para voltar à anterior.
+4. Pressione `Esc` para fechar a busca.
 </Steps>
 
-### Alterar a configuração
+![Busca no Preview](/projects/clidocs/preview-search.png)
 
-Pressione `G` a qualquer momento para atualizar a URL do repositório, o usuário ou o e-mail.
+### Sincronização com o Git
 
-:::caution[GitHub]
-O repositório precisa existir no GitHub antes da sincronização. Em repositórios privados, deixe as credenciais em cache pelo [Git Credential Manager](https://github.com/git-ecosystem/git-credential-manager) ou use SSH.
-:::
+Pressione `g` para sincronizar o diretório de snippets com um repositório Git. Na primeira vez, um diálogo pede o remote; `G` edita a configuração depois. O Git precisa estar instalado.
 
-![GitHub sync](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/sync-complete.png)
+### Console
 
-## Console (easter egg)
+Pressione `:` na tela principal para abrir o console (`Cmdline`). Digite um comando e pressione `Enter`. `Esc` fecha o console e, dentro da tela de um comando, `Esc` volta ao console. Comandos desconhecidos mostram `Unknown command` e uma dica para digitar `cmd`.
 
-Pressione `:` em **qualquer painel** para abrir o console `Cmdline`, uma linha de comando dentro do clidocs.
+![Console](/projects/clidocs/console.png)
 
-![Console](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/cmdline-screen.png)
+#### `time`
 
-### Comandos disponíveis
+Calculadora de horas de trabalho. Digite seu horário de entrada como `HH:MM` (por exemplo `08:00`) e pressione `Enter`. Ela mostra o café, o início do almoço, o fim do almoço, a saída normal (8h48 trabalhadas) e a saída máxima (10h trabalhadas). `Enter` volta ao console.
 
-| Comando | Descrição |
-|---|---|
-| `time` | **Calculadora de horas de trabalho**: informe o horário de entrada (HH:MM) e veja café, almoço, saída normal e saída máxima |
-| `whoami` | Mostra suas informações de usuário (edite a constante `whoamiText` em `console.go`) |
-| `nvim` | Abre o **guia rápido do Neovim**, com cheat-sheet em duas colunas |
-| `help` | Mostra todos os atalhos e comandos |
-| `clear` | Limpa a saída do console |
-| `exit` / `quit` | Fecha o console |
+Primeiro, digite o horário de entrada no campo `HH:MM` e pressione `Enter` para calcular (`Esc` volta).
 
-### Guia rápido do Neovim (`nvim`)
+![Entrada do comando time](/projects/clidocs/console-time.png)
 
-Digite `nvim` no console e pressione `Enter` para abrir um modal de referência com:
+Depois o resultado é mostrado. No exemplo, uma entrada às `07:01` dá o café às `08:01`, o almoço das `11:01` às `12:01`, a saída normal às `16:49` (8h48 trabalhadas) e a saída máxima às `18:01` (10h trabalhadas).
 
-- **Navegação:** `hjkl`, `gg`/`G`, `Ctrl+d`/`u`, saltos por palavra e linha
-- **Edição:** modos de inserção (`i`, `a`, `o`), desfazer/refazer, apagar, copiar e colar
-- **Salvar e sair:** `:w`, `:q`, `:wq`, `:q!`
-- **Busca:** `/palavra` e `n`/`N` para percorrer
-- **Comentar várias linhas:** `Ctrl+V`, seleção em bloco, `:` e `'<,'>s/^/#`
-- **Descomentar várias linhas:** `Ctrl+V`, seleção em bloco, `:` e `'<,'>s/^#//`
-- **Modo visual:** `v` (caractere), `V` (linha), `Ctrl+V` (bloco)
+![Resultado do comando time](/projects/clidocs/console-time-result.png)
 
-![Neovim Quick Reference](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/cmdline-nvim-guide.png)
+#### `alive`
 
-### Calculadora de horas (`time`)
+Mantém o computador acordado. Enquanto esta tela está aberta, o clidocs pressiona a tecla `B` a cada 2 segundos, para que o sistema não bloqueie nem fique inativo. A tecla vai para a janela em foco, então mantenha o clidocs em foco enquanto ele roda. `Esc` interrompe.
 
-Baseada em uma jornada de **8h48** com 1h de almoço, a partir do seu horário de entrada:
+#### `whoami`
 
-| Resultado | Descrição |
-|---|---|
-| **Café** | Primeira pausa sugerida (+1h) |
-| **Início do almoço** | +4h após a entrada |
-| **Fim do almoço** | +1h após o início do almoço |
-| **Saída normal** | Entrada + 8h48 de trabalho + 1h de almoço |
-| **Saída máxima** | Entrada + 10h de trabalho + 1h de almoço |
+Mostra informações sobre o autor como se um comando de terminal tivesse sido executado. `Enter` abre o site fantodocs.github.io no navegador e `Esc` volta ao console.
 
-![Time calculator](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/cmdline-work-hours.png)
+![Comando whoami](/projects/clidocs/console-whoami.png)
 
-### Personalizando o `whoami`
+#### `cmd`
 
-Edite `console.go` e altere a constante `whoamiText` com as suas informações:
+Mostra a lista de comandos disponíveis no console, cada um com uma descrição curta. Tem duas abas: "Console commands" e "Neovim Quick Reference". Use `←`/`→` ou `Tab` para trocar de aba, `1`/`2` para ir direto a uma delas e `↑`/`↓` para rolar. `Enter` ou `Esc` volta ao console. Os atalhos dos painéis ficam no painel de ajuda, aberto com `?` na tela principal.
 
-```go
-const whoamiText = `
-  Seu Nome
-  Seu Cargo
-  GitHub: github.com/seuusuario
-  ...
-`
-```
+![Comando cmd](/projects/clidocs/console-cmd.png)
 
-![whoami](https://raw.githubusercontent.com/F4NT0/clidocs/main/images/cmdline-whoami.png)
+#### `nvim`
+
+Abre a mesma ajuda do `cmd`, mas direto na aba "Neovim Quick Reference". Mostra navegação, edição, salvar e sair, busca, comentar e descomentar várias linhas e o modo visual. Use `←`/`→` ou `Tab` para trocar para a aba "Console commands". `Enter` ou `Esc` volta ao console.
+
+![Comando nvim](/projects/clidocs/console-nvim.png)
+
+#### `ls` e `cd`
+
+`ls` abre um painel flutuante com a árvore dos diretórios dentro do diretório aberto no clidocs (até 3 níveis, pastas ocultas ignoradas). Use `↑`/`↓` para rolar. No painel, digite `cd <diretório>` (por exemplo `cd Projects` ou `cd Projects/App`) e pressione `Enter`: o painel fecha e os painéis Folders e Files mostram o diretório escolhido. `Esc` volta ao console. No console, `cd <diretório>` também funciona direto, e `cd ..` vai para o diretório pai.
+
+![Comandos ls e cd](/projects/clidocs/console-ls.png)
+
+#### `exit`
+
+Fecha o clidocs por completo (`quit` faz o mesmo).
 
 ## Linguagens suportadas
 
@@ -632,9 +449,3 @@ Para instalar as dependências:
 ```bash
 go mod tidy
 ```
-
----
-
-Feito com ☕ e Go · Tema escuro · Foco no teclado
-
-Criado por Gabriel Stundner
